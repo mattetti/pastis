@@ -1,3 +1,5 @@
+#!/usr/bin/ruby
+
 require 'rubygems'
 require 'net/http'
 require 'uri'
@@ -5,7 +7,7 @@ require 'date'
 require 'logs'
 include Logs
 begin
-  require 'nokogiri2'
+  require 'nokogiri'
 rescue LoadError
   require "rexml/document"
   XML_PARSER = 'rexml'
@@ -14,8 +16,9 @@ else
 end
  
 
-BASE_URL = "http://pipes.yahoo.com"
-FEED_URI = "/pipes/pipe.run?_id=7aa6281616ea0a8cb27aaa0914f09a76&_render=rss"
+BASE_URL            = "http://pipes.yahoo.com"
+FEED_URI            = "/pipes/pipe.run?_id=7aa6281616ea0a8cb27aaa0914f09a76&_render=rss"
+TORRENTS_LOCAL_PATH = File.expand_path("./torrents/")
 
 def feed
   url = URI.parse(BASE_URL)
@@ -55,7 +58,7 @@ def extract_guid(item)
 end 
 
 def download_torrent(item, path_to_save=nil)
-  path_to_save ||= File.dirname(__FILE__)
+  Dir.mkdir(TORRENTS_LOCAL_PATH) unless File.exist?(TORRENTS_LOCAL_PATH)
   link = extract_link(item)
   guid = extract_guid(item)
   url  = URI.parse(link)
@@ -63,10 +66,10 @@ def download_torrent(item, path_to_save=nil)
     
   timestamp = extract_timestamp(item)
   
-  if Dir.glob("#{timestamp}-*").empty? && not_in_logs?(guid)
+  if not_in_logs?(guid)
     res = Net::HTTP.start(url.host, url.port) {|http| http.get(url.path)}
     filename = res['content-disposition'][/filename="(.*)";/, 1]
-    torrent_path = File.join(path_to_save, "#{timestamp}-#{filename}")
+    torrent_path = File.join(TORRENTS_LOCAL_PATH, "#{timestamp}-#{filename}")
     File.open(torrent_path, 'w'){|file| file << res.body}
     add_to_logs(guid, filename, timestamp) 
   end

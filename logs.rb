@@ -26,6 +26,11 @@ module Logs
   end 
   
   def prune_logs
-    log_data.delete_if{|item| item[:timestamp] < (Time.now - (60 * 60 * 24 * 31)) }
+    log_data.delete_if{|item| item[:added_at] < (Time.now - (60 * 60 * 24 * 31)) }
   end
+  
+  def clear_logs
+    `rm .rsslog`
+  end        
+  
 end
