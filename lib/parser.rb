@@ -2,6 +2,8 @@ class Pastis
   include Logs
   
   module Parser
+    
+    class ParserError < StandardError; end
 
     def extract_link(item)
       if XML_PARSER == 'nokogiri'
@@ -19,7 +21,7 @@ class Pastis
       elsif XML_PARSER == 'rexml'
         date = item.elements['pubDate'].text
       else
-        raise 'wow, how did you manage to not have a XML parser set?'
+        raise ParserError, 'wow, how did you manage to not have a XML parser set?'
       end
       ::DateTime.parse(date).strftime("%F-%T").gsub(':', '_')
     end
@@ -30,25 +32,29 @@ class Pastis
       elsif XML_PARSER == 'rexml'
         date = item.elements['guid'].text
       else
-        raise 'wow, how did you manage to not have a XML parser set?'
+        raise ParserError,'wow, how did you manage to not have a XML parser set?'
       end
     end 
 
     def download_torrent(item, path_to_save=nil)
       Dir.mkdir(TORRENTS_LOCAL_PATH) unless File.exist?(TORRENTS_LOCAL_PATH)
-      link = extract_link(item)
-      guid = extract_guid(item)
-      url  = URI.parse(link)
-      path  = url.path
-
-      timestamp = extract_timestamp(item)
-
-      if not_in_logs?(guid)
-        res = Net::HTTP.start(url.host, url.port) {|http| http.get(url.path)}
-        filename = res['content-disposition'][/filename="(.*)";/, 1]
-        torrent_path = File.join(TORRENTS_LOCAL_PATH, "#{timestamp}-#{filename}")
-        File.open(torrent_path, 'w'){|file| file << res.body}
-        add_to_logs(guid, filename, timestamp) 
+      begin
+        link = extract_link(item)
+        guid = extract_guid(item)
+        timestamp = extract_timestamp(item)
+        url  = URI.parse(link)
+        path  = url.path
+      rescue => e
+        # raise ParserError, e.message
+        p e.message
+      else
+        if not_in_logs?(guid)
+          res = Net::HTTP.start(url.host, url.port) {|http| http.get(url.path)}
+          filename = res['content-disposition'][/filename="(.*)";/, 1]
+          torrent_path = File.join(TORRENTS_LOCAL_PATH, "#{timestamp}-#{filename}")
+          File.open(torrent_path, 'w'){|file| file << res.body}
+          add_to_logs(guid, filename, timestamp) 
+        end 
       end
     end
   end
