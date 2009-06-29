@@ -1,0 +1,10 @@
+#!/usr/bin/ruby 
+
+require File.join(File.dirname(__FILE__), '..', 'pastis')
+module Waterboy
+  def self.prepare
+    Pastis.new.pour
+  end
+end 
+
+Waterboy.prepare
