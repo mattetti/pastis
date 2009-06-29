@@ -19,8 +19,7 @@ require 'rubygems'
 require 'net/http'
 require 'uri'
 require 'date'
-require 'lib/logs'
-require 'lib/parser'
+Dir.glob("lib/*.rb").each{|file| require file}
 begin
   require 'nokogiri'
 rescue LoadError
@@ -31,27 +30,27 @@ else
 end
 
 class Pastis
-  include Parser 
+  include Parser
   DEFAULT_FEED        = "http://pipes.yahoo.com/pipes/pipe.run?_id=7aa6281616ea0a8cb27aaa0914f09a76&_render=rss"
   TORRENTS_LOCAL_PATH = File.expand_path("./torrents/")     # AKA the glass
   PRUNE_FILES_AFTER   = Time.now - (60 * 60 * 24 * 31)
-  
-  def feed(url_string=nil)
-    url_string ||= DEFAULT_FEED
-    url = URI.parse(url_string)
-    feed_uri =  url.query ? "#{url.path}?#{url.query}" : url.path
-    res = Net::HTTP.start(url.host, url.port) {|http| http.get(feed_uri) }
-    res.body 
+   
+  attr_reader :client, :server 
+   
+  def initialize
+    @client = Ricard::Client.new
   end
   
-  # delete the old files
+  # Deletes the old files
   def wash_the_dishes
     Dir.glob("#{TORRENTS_LOCAL_PATH}*.torrent").each do |file|
       File.delete(file) if (File.new(file).atime < PRUNE_FILES_AFTER)
     end
   end
   
-  # Start the download of the files
+  # Get, parses the feed and download each link
+  # Before finishing the work done is saved in the logs
+  # and the old files are being deleted.
   def pour(url=nil)
     # Where everything starts
     if XML_PARSER == 'nokogiri'
@@ -74,7 +73,48 @@ class Pastis
     save_logs
     wash_the_dishes
   end
+  
+  def send_command(command, plugin='ricard')
+    client.send_command(command, plugin)
+  end
+  
+  # Wakes up a sleeping machine using wake on lan
+  # 
+  # === Parameters
+  # mac_address <String> the mac address of the machine to wake.
+  # ip <String> the ip of the machine to wake.
+  #
+  # === Usage
+  # pastaga = Pastis.new
+  # pastage.wake("00:1c:42:00:00:00", "10.37.129.2")
+  #
+  def wake(mac_address, ip)
+    wol = WakeOnLAN.new
+    wol.setup(mac_address, ip)
+    wol.send_wake
+  end
+  
+  def start_ricard
+    @server = Ricard::Server.new
+    @server.start
+  end
+  
+  protected
+  
+  # query the feed and return the body
+  def feed(url_string=nil)
+    url_string ||= DEFAULT_FEED
+    url = URI.parse(url_string)
+    feed_uri =  url.query ? "#{url.path}?#{url.query}" : url.path
+    req = Net::HTTP.start(url.host, url.port) {|http| http.get(feed_uri) }
+    req.body 
+  end
 
-end  
+end 
 
-Pastis.new.pour 
+# pastaga = Pastis.new
+# pastaga.start_ricard
+# 
+# pastaga.client.send_command("do it!")  
+
+# Pastis.new.pour 
