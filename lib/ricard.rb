@@ -2,6 +2,8 @@ require 'dnssd'
 require 'eventmachine'
 require 'base64'
 
+class RicardError < StandardError; end
+
 # Bonjour server handling requests from the LAN
 # using the Ricard client.
 module Ricard
@@ -55,7 +57,12 @@ module RicardEventServer
       command, plugin = data.split(';').map {|s| Base64.decode64(s) }
       # do something with the query
       $stderr.puts "Plugin: #{plugin}, Command: #{command}"
-      send_data("Plugin: #{plugin}, Command: #{command}")
+      case plugin
+      when 'ricard'
+        send_data(::Ricard::Plugin.execute(command))
+      else
+        send_data("Plugin #{plugin} not available")
+      end
     end
   end
   

@@ -19,9 +19,7 @@ module Ricard
     def discover_ricard_server
       return server_info if server_info
       server_discovery = DNSSD.resolve('ricard', '_ricard._tcp', 'local') do |r|
-        route_results = `traceroute #{r.target}` 
-        # looking up the ip since calling the server using the domain won't work :(
-        ip = route_results[/\((.*)\)/,1] 
+        ip = ::Ricard::Plugin.domain_to_ip(r.target)
         raise ::Ricard::Client::DiscoveryError, "The ricard server wasn't found on the LAN" unless ip
         @server_info = ServerInfo.new(ip, r.port, r.target)
         puts "Found the Ricard service at #{@server_info.domain} #{@server_info.port} on ip: #{@server.ip}"
@@ -32,11 +30,11 @@ module Ricard
       server_info
     end
     
-    def send_command(command, plugin='ricard')
+    def send(command, plugin='ricard')
       puts "Sending: '#{command}' to the #{plugin} Ricard Server plugin"
       ricard_server = discover_ricard_server
 
-      data = [plugin, command].map do |s| 
+      data = [command, plugin].map do |s| 
         Base64.encode64(s)
       end.join(';') + ";"
 
@@ -45,6 +43,7 @@ module Ricard
       puts ricard.recv(100)
       ricard.close    
     end
+    alias :send_command :send
     
   end
 end
