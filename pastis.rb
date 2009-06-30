@@ -94,6 +94,11 @@ class Pastis
     wol.send_wake
   end
   
+  def wake_ricard
+    wolinfo = send_command('wol_info')
+    wake(wolinfo.first, wolinfo.last)
+  end
+  
   def start_ricard
     @server = Ricard::Server.new
     @server.start

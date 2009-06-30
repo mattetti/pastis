@@ -27,7 +27,7 @@ module Ricard
     # meant to be called by the client
     # and returns the server info
     def wol_info
-      @wol_info ||= [Mac.address, Ricard::Plugin.domain_to_ip(`hostname`)].map{|item| Base64.encode64(item) }.join(';') + ";"
+      @wol_info ||=  [Mac.address, Ricard::Plugin.domain_to_ip(`hostname`) ]
     end
     
   end

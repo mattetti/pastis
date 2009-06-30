@@ -58,7 +58,7 @@ module Mac
       raise 'no mac address found' unless maddr
 
       maddr.strip!
-      maddr.instance_eval{ @list = candidates; def list() @list end }
+      # maddr.instance_eval{ @list = candidates; def list() @list end }
 
       @mac_address = maddr
     end

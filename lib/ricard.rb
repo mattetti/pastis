@@ -52,16 +52,16 @@ module RicardEventServer
   
   def receive_data(data)
     p "received data #{data}"
-    if data.scan(/;/).size == 2
-      # B64 Encoded COMMAND;PLUGIN;
-      command, plugin = data.split(';').map {|s| Base64.decode64(s) }
+    data = Marshal.load(data)
+    if data.is_a?(Array)
+      command, plugin = data
       # do something with the query
       $stderr.puts "Plugin: #{plugin}, Command: #{command}"
       case plugin
       when 'ricard'
-        send_data(::Ricard::Plugin.execute(command))
+        send_data(Marshal.dump(::Ricard::Plugin.execute(command)))
       else
-        send_data("Plugin #{plugin} not available")
+        send_data(Marshal.dump("Plugin #{plugin} not available"))
       end
     end
   end

@@ -30,20 +30,18 @@ module Ricard
       server_info
     end
     
-    def send(command, plugin='ricard')
+    def send_command(command, plugin='ricard')
       puts "Sending: '#{command}' to the #{plugin} Ricard Server plugin"
       ricard_server = discover_ricard_server
 
-      data = [command, plugin].map do |s| 
-        Base64.encode64(s)
-      end.join(';') + ";"
+      data = Marshal.dump([command, plugin]) 
 
       ricard = TCPSocket.new(ricard_server.ip, ricard_server.port)  #.send(data, 0)
       ricard.send(data, 0)
-      puts ricard.recv(100)
-      ricard.close    
+      returned_data = Marshal.load(ricard.recv(200))
+      ricard.close
+      returned_data    
     end
-    alias :send_command :send
     
   end
 end
