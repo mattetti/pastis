@@ -7,9 +7,6 @@ class Pastis
     
     class WrongArguments < StandardError; end
     
-    # INCLUSIVE_FILTER_REGEXPS = [/.*Weeds\s.*/i] 
-    # EXCLUSIVE_FILTER_REGEXPS = [/.*HDTV.*/i]  
-    
     def initialize(attrs={})
       raise(WrongArguments, "you need to pass at least an inclusive and an exclusive rule") unless (attrs.has_key?(:inclusive_rules) && attrs.has_key?(:exclusive_rules))
       @inclusive_rules = attrs[:inclusive_rules].is_a?(Array) ? attrs[:inclusive_rules] : [attrs[:inclusive_rules]]

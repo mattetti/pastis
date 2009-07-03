@@ -48,7 +48,7 @@ class Pastis
 
     def download_torrent(item, path_to_save=nil)
       Dir.mkdir(TORRENTS_LOCAL_PATH) unless File.exist?(TORRENTS_LOCAL_PATH)
-      Dir.mkdir(TORRENTS_LOCAL_PATH + 'to_download/') unless File.exist?(TORRENTS_LOCAL_PATH + 'to_download/')
+      Dir.mkdir(TORRENTS_LOCAL_PATH + '/to_download/') unless File.exist?(TORRENTS_LOCAL_PATH + '/to_download/')
       
       begin
         link = extract_link(item)
@@ -71,8 +71,8 @@ class Pastis
       end
     end 
     
-    def find_torrents_path_to_user(title, filename)
-      if FILTERS.map{|filter| filter.to_download?(title)}.uniq == true 
+    def find_torrents_path_to_user(title, filename) 
+      if FILTERS.map{|filter| filter.to_download?(title)}.uniq.include?(true) 
         File.join(TORRENTS_LOCAL_PATH, 'to_download', filename)
       else
         File.join(TORRENTS_LOCAL_PATH, filename)
