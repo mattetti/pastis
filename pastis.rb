@@ -18,7 +18,8 @@
 require 'rubygems'
 require 'net/http'
 require 'uri'
-require 'date'
+require 'date' 
+require 'yaml'
 Dir.glob("lib/*.rb").each{|file| require file}
 begin
   require 'nokogiri'
