@@ -33,7 +33,10 @@ class Pastis
   include Parser
   DEFAULT_FEED        = "http://pipes.yahoo.com/pipes/pipe.run?_id=7aa6281616ea0a8cb27aaa0914f09a76&_render=rss"
   TORRENTS_LOCAL_PATH = File.expand_path("./torrents/")     # AKA the glass
-  PRUNE_FILES_AFTER   = Time.now - (60 * 60 * 24 * 31)
+  PRUNE_FILES_AFTER   = Time.now - (60 * 60 * 24 * 31)                                              
+  # TODO check the file exist
+  FILTERS             = YAML.load(File.open('filters.yml', 'r')).map{|raw| ::Pastis::Filter.new(raw)}
+  
    
   attr_reader :client, :server 
    
@@ -113,7 +116,7 @@ class Pastis
     feed_uri =  url.query ? "#{url.path}?#{url.query}" : url.path
     req = Net::HTTP.start(url.host, url.port) {|http| http.get(feed_uri) }
     req.body 
-  end
+  end 
 
 end 
 

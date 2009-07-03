@@ -1,0 +1,5 @@
+--- 
+- :exclusive_rules: 
+  - !ruby/regexp /.*720p.*/i
+  :inclusive_rules: 
+  - !ruby/regexp /.*Weeds\s.*/i

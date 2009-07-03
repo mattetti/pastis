@@ -16,8 +16,7 @@ class Pastis
 
     def save_logs
       prune_logs
-      log << Marshal.dump(log_data)
-      log.close
+      File.open(LOG_FILE, 'r+'){|f| f << Marshal.dump(log_data)}
       @log_data = nil
     end            
 
