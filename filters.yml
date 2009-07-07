@@ -1,9 +1,10 @@
 --- 
 - :exclusive_rules: 
-  - !ruby/regexp /.*720p.*/i
+  - 720p
   :inclusive_rules: 
-  - !ruby/regexp /.*Weeds\s.*/i  
+  - Weeds    
 - :exclusive_rules: 
-  - !ruby/regexp /.*720p.*/i
+  - 720p
   :inclusive_rules: 
-  - !ruby/regexp /.*The\sPhilanthropist.*/i 
+  - The Philanthropist
+  - S01 

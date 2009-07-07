@@ -4,8 +4,8 @@ require File.dirname(__FILE__) + '/../pastis'
 describe "Filter" do
   
   before(:all) do
-    @filter = Pastis::Filter.new(:inclusive_rules => [/.*Weeds\s.*/i], :exclusive_rules => [/.*720p.*/i])
-    @filter_2 = Pastis::Filter.new(:inclusive_rules => [/.*The\sPhilanthropist.*/i], :exclusive_rules => [/.*720p.*/i])
+    @filter = Pastis::Filter.new(:inclusive_rules => ['Weeds'], :exclusive_rules => ['720p'])
+    @filter_2 = Pastis::Filter.new(:inclusive_rules => ['The Philanthropist'], :exclusive_rules => ['720p'])
   end
   
   it "should be able to match inclusive and excusive regexps" do

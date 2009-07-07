@@ -1,6 +1,6 @@
 class Pastis
   module Logs          
-    LOG_FILE = '.rsslog'
+    LOG_FILE = ROOT + '/.rsslog'
 
     def log
       @log ||= File.exist?(LOG_FILE) ? File.open(LOG_FILE, 'r+') : File.new(LOG_FILE, 'w+')

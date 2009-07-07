@@ -20,7 +20,8 @@ require 'net/http'
 require 'uri'
 require 'date' 
 require 'yaml'
-Dir.glob("lib/*.rb").each{|file| require file}
+ROOT = File.expand_path(File.dirname(__FILE__))
+Dir.glob(ROOT + "/lib/*.rb").each{|file| require File.expand_path(file)}
 begin
   require 'nokogiri'
 rescue LoadError
@@ -36,7 +37,7 @@ class Pastis
   TORRENTS_LOCAL_PATH = File.expand_path("./torrents/")     # AKA the glass
   PRUNE_FILES_AFTER   = Time.now - (60 * 60 * 24 * 31)                                              
   # TODO check the file exist
-  FILTERS             = YAML.load(File.open('filters.yml', 'r')).map{|raw| ::Pastis::Filter.new(raw)}
+  FILTERS             = YAML.load(File.open(ROOT + '/filters.yml', 'r')).map{|raw| ::Pastis::Filter.new(raw)}
   
    
   attr_reader :client, :server 
@@ -120,10 +121,3 @@ class Pastis
   end 
 
 end 
-
-# pastaga = Pastis.new
-# pastaga.start_ricard
-# 
-# pastaga.client.send_command("do it!")  
-
-# Pastis.new.pour 

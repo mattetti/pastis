@@ -63,16 +63,20 @@ class Pastis
       else
         if not_in_logs?(guid)
           res = Net::HTTP.start(url.host, url.port) {|http| http.get(url.path)}
-          filename = res['content-disposition'][/filename="(.*)";/, 1]
-          torrent_path = find_torrents_path_to_user(title, filename)
-          File.open(torrent_path, 'w'){|file| file << res.body}
-          add_to_logs(guid, filename, timestamp) 
+          if res['content-disposition']
+            filename = res['content-disposition'][/filename="(.*)";/, 1]
+            torrent_path = find_torrents_path_to_user(title, filename)
+            File.open(torrent_path, 'w'){|file| file << res.body}
+            add_to_logs(guid, filename, timestamp) 
+          else
+            puts "skipping #{title} since it doesn't have a torrent file attached"
+          end 
         end 
       end
     end 
     
     def find_torrents_path_to_user(title, filename) 
-      if FILTERS.map{|filter| filter.to_download?(title)}.uniq.include?(true) 
+      if FILTERS && FILTERS.map{|filter| filter.to_download?(title)}.uniq.include?(true) 
         File.join(TORRENTS_LOCAL_PATH, 'to_download', filename)
       else
         File.join(TORRENTS_LOCAL_PATH, filename)
