@@ -24,16 +24,16 @@ ROOT = File.expand_path(File.dirname(__FILE__))
 Dir.glob(ROOT + "/lib/*.rb").each{|file| require File.expand_path(file)}
 begin
   require 'nokogiri'
-rescue LoadError
+rescue LoadError   
   require "rexml/document"
-  XML_PARSER = 'rexml'
-else
+  XML_PARSER = 'rexml' 
+else 
   XML_PARSER = 'nokogiri'
-end
+end  
 
 class Pastis
   include Parser
-  DEFAULT_FEED        = "http://pipes.yahoo.com/pipes/pipe.run?_id=7aa6281616ea0a8cb27aaa0914f09a76&_render=rss"
+  DEFAULT_FEED        = "http://www.ezrss.it/feed/" #"http://pipes.yahoo.com/pipes/pipe.run?_id=7aa6281616ea0a8cb27aaa0914f09a76&_render=rss"
   TORRENTS_LOCAL_PATH = File.expand_path("./torrents/")     # AKA the glass
   PRUNE_FILES_AFTER   = Time.now - (60 * 60 * 24 * 31)                                              
   # TODO check the file exist

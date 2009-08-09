@@ -1,3 +1,6 @@
+require 'digest/md5'
+require 'digest/sha1'
+
 class Pastis
   include Logs
   
@@ -28,9 +31,17 @@ class Pastis
 
     def extract_guid(item)
       if XML_PARSER == 'nokogiri'
-        date = item.xpath('guid').first.content
+        if !item.xpath('guid').empty?
+          date = item.xpath('guid').first.content
+        else
+          date = Digest::MD5.hexdigest(item.xpath('link').first.content)
+        end
       elsif XML_PARSER == 'rexml'
-        date = item.elements['guid'].text
+        if item.elements['guid']
+          date = item.elements['guid'].text
+        else
+          date = Digest::MD5.hexdigest(item.elements['link'].text)
+        end
       else
         raise ParserError,'wow, how did you manage to not have a XML parser set?'
       end
@@ -44,30 +55,51 @@ class Pastis
       else
         raise ParserError,'wow, how did you manage to not have a XML parser set?'
       end
+    end
+    
+    def extract_enclosure(item)
+      if XML_PARSER == 'nokogiri'
+        item.xpath('enclosure').first.attributes['url']
+      elsif XML_PARSER == 'rexml'
+        item.elements['enclosure'].attributes['url'] 
+      else
+        raise ParserError,'wow, how did you manage to not have a XML parser set?'
+      end  
     end 
-
+    
+    # TODO please please please clean up that mess [Matt]
     def download_torrent(item, path_to_save=nil)
       Dir.mkdir(TORRENTS_LOCAL_PATH) unless File.exist?(TORRENTS_LOCAL_PATH)
       Dir.mkdir(TORRENTS_LOCAL_PATH + '/to_download/') unless File.exist?(TORRENTS_LOCAL_PATH + '/to_download/')
       
-      begin
+      begin 
         link = extract_link(item)
         guid = extract_guid(item)
         timestamp = extract_timestamp(item)
         title = extract_title(item)
-        url  = URI.parse(link)
+        url  = URI.parse(link.gsub(/\[(.+?)\]/){|grp| "~#{$1}~"})
         path  = url.path
       rescue => e
         # raise ParserError, e.message
         p "#{e.message} [#{__FILE__} Line #{__LINE__}]" 
       else
         if not_in_logs?(guid)
-          res = Net::HTTP.start(url.host, url.port) {|http| http.get(url.path)}
+          res = Net::HTTP.start(url.host, url.port) {|http| http.get( url.path.gsub(/~(.*)~/){|grp| "[#{$1}]"} )}
           if res['content-disposition']
             filename = res['content-disposition'][/filename="(.*)";/, 1]
             torrent_path = find_torrents_path_to_user(title, filename)
             File.open(torrent_path, 'w'){|file| file << res.body}
             add_to_logs(guid, filename, timestamp) 
+          elsif enclosure_link = extract_enclosure(item)
+            link =~ /.*\/(.*\.torrent)/
+            filename = $1
+            if filename
+              torrent_path = find_torrents_path_to_user(title, filename)
+              File.open(torrent_path, 'w'){|file| file << res.body}
+              add_to_logs(guid, filename, timestamp)  
+            else
+              puts "couldn't find out the filename of the enclosure"
+            end
           else
             puts "skipping #{title} since it doesn't have a torrent file attached"
           end 
