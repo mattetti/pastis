@@ -20,7 +20,7 @@ class Pastis
     def to_download?(string)
       if inclusive_rules.map{|rule| string.downcase.include?(rule.downcase) }.compact.include?(false)
         false 
-      elsif exclusive_rules.empty? || !exclusive_rules.map{|rule| string.downcase.include?(rule.downcase) }.compact.include?(true)
+      elsif exclusive_rules.nil? || exclusive_rules.empty? || !exclusive_rules.map{|rule| string.downcase.include?(rule.downcase) }.compact.include?(true)
         true
       else
         false
