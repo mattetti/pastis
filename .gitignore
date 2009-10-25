@@ -2,3 +2,5 @@
 filters.yml
 .DS_Store
 */.DS_Store
+filterer/build
+filterer/filterer.xcodeproj/mattetti
