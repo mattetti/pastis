@@ -68,7 +68,7 @@ class FilterWindowController < NSWindowController
       inclusive_name.stringValue = @filters[filterTableView.selectedRow][:inclusive_rules].join(', ') if @filters[filterTableView.selectedRow][:inclusive_rules]
       exclusive_name.stringValue = @filters[filterTableView.selectedRow][:exclusive_rules].join(', ') if @filters[filterTableView.selectedRow][:exclusive_rules]
       location.stringValue =  @filters[filterTableView.selectedRow][:location] || ''
-      add(nil, :edit)
+      add(nil, :update)
     else
       alert
     end
@@ -117,7 +117,7 @@ class FilterWindowController < NSWindowController
     # Display the dialog and process the selected folder
     if dialog.runModalForDirectory(nil, file:nil) == NSOKButton 
       selection = dialog.filenames.first
-      location.stringValue = dialog.filenames.first
+      location.stringValue = dialog.filenames.first.to_s
     end
   end
   
