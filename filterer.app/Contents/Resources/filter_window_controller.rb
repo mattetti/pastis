@@ -16,6 +16,7 @@ class FilterWindowController < NSWindowController
 
   def awakeFromNib
     retrieve_filters
+    filterTableView.doubleAction = "edit:"
   end
   
   def windowWillClose(sender)
@@ -118,7 +119,6 @@ class FilterWindowController < NSWindowController
     if dialog.runModalForDirectory(nil, file:nil) == NSOKButton 
       selection = dialog.filenames.first
       location.stringValue = dialog.filenames.first.to_s
-      puts location.stringValue
     end
   end
   

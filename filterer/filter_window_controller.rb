@@ -16,6 +16,7 @@ class FilterWindowController < NSWindowController
 
   def awakeFromNib
     retrieve_filters
+    filterTableView.doubleAction = "edit:"
   end
   
   def windowWillClose(sender)
