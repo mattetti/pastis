@@ -65,6 +65,12 @@ class Pastis
       else
         raise ParserError,'wow, how did you manage to not have a XML parser set?'
       end  
+    end
+    
+    def add_to_transmission_queue(torrent_path, download_destination)
+      if download_destination && defined?(Transmission)
+        Transmission.add_to_queue(torrent_path, download_destination)
+      end
     end 
     
     # TODO please please please clean up that mess [Matt]
@@ -87,15 +93,17 @@ class Pastis
           res = Net::HTTP.start(url.host, url.port) {|http| http.get( url.path.gsub(/~(.*)~/){|grp| "[#{$1}]"} )}
           if res['content-disposition']
             filename = res['content-disposition'][/filename="(.*)";/, 1]
-            torrent_path = find_torrents_path_to_user(title, filename)
+            torrent_path, download_destination = find_torrents_path_to_user(title, filename)
             File.open(torrent_path, 'w'){|file| file << res.body}
+            add_to_transmission_queue(file, destination)
             add_to_logs(guid, filename, timestamp) 
           elsif enclosure_link = extract_enclosure(item)
             link =~ /.*\/(.*\.torrent)/
             filename = $1
             if filename
-              torrent_path = find_torrents_path_to_user(title, filename)
+              torrent_path, download_destination = find_torrents_path_to_user(title, filename)
               File.open(torrent_path, 'w'){|file| file << res.body}
+              add_to_transmission_queue(torrent_path, download_destination)
               add_to_logs(guid, filename, timestamp)  
             else
               puts "couldn't find out the filename of the enclosure"
@@ -107,11 +115,12 @@ class Pastis
       end
     end 
     
-    def find_torrents_path_to_user(title, filename) 
+    # returns an array with the torrent path and the torrent destination if available
+    def find_torrents_path_to_user(title, filename)
       if FILTERS && FILTERS.map{|filter| filter.to_download?(title)}.uniq.include?(true) 
-        File.join(TORRENTS_LOCAL_PATH, 'to_download', filename)
+        [File.join(TORRENTS_LOCAL_PATH, 'to_download', filename), FILTERS.detect{|filter| filter.to_download?(title)}.location ]
       else
-        File.join(TORRENTS_LOCAL_PATH, filename)
+        [File.join(TORRENTS_LOCAL_PATH, filename), nil]
       end
     end
     

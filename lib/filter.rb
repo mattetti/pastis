@@ -4,6 +4,7 @@ class Pastis
   class Filter
     attr_reader :inclusive_rules
     attr_reader :exclusive_rules
+    attr_reader :location
     
     class WrongArguments < StandardError; end
     
@@ -14,6 +15,7 @@ class Pastis
         @exclusive_rules = attrs[:exclusive_rules].is_a?(Array) ? attrs[:exclusive_rules] : [attrs[:exclusive_rules]]
       end
       @inclusive_rules.each{|rule| raise(WrongArguments, "A string is required") unless rule.is_a?(String)}
+      @location = attrs[:location] || "~/Downloads"
       self
     end     
     
