@@ -12,7 +12,7 @@ class FilterWindowController < NSWindowController
  # table view
  attr_accessor :filterTableView
  # fields
- attr_accessor :inclusive_name, :exclusive_name, :close_button
+ attr_accessor :inclusive_name, :exclusive_name, :close_button, :location
 
   def awakeFromNib
     retrieve_filters
@@ -25,7 +25,7 @@ class FilterWindowController < NSWindowController
   def yaml_file
     yaml_file = File.expand_path('~/pastis_filters.yml')
     unless File.exist?(yaml_file)
-      File.open(yaml_file, 'w+'){|f| f << [{:inclusive_rules => ['TED'], :exclusive_rules => ['720p'] }].to_yaml}
+      File.open(yaml_file, 'w+'){|f| f << [{:inclusive_rules => ['TED'], :exclusive_rules => ['720p'], :location => File.expand_path("~/Downloads") }].to_yaml}
     end
     yaml_file
   end
@@ -46,6 +46,8 @@ class FilterWindowController < NSWindowController
         filter[:inclusive_rules] ? filter[:inclusive_rules].join(', ') : ""
       when 'exclusive'
         filter[:exclusive_rules] ? filter[:exclusive_rules].join(', ') : ""
+      when 'location'
+        filter[:location] ? filter[:location] : ""
     end
   end
   
@@ -65,9 +67,10 @@ class FilterWindowController < NSWindowController
     if filterTableView.selectedRow != -1
       inclusive_name.stringValue = @filters[filterTableView.selectedRow][:inclusive_rules].join(', ') if @filters[filterTableView.selectedRow][:inclusive_rules]
       exclusive_name.stringValue = @filters[filterTableView.selectedRow][:exclusive_rules].join(', ') if @filters[filterTableView.selectedRow][:exclusive_rules]
+      location.stringValue =  @filters[filterTableView.selectedRow][:location] || ''
       add(nil, :edit)
     else
-      nothing_selected_alert
+      alert
     end
   end
   
@@ -85,7 +88,6 @@ class FilterWindowController < NSWindowController
     mode = :add if mode.class == NSButton
     @sheet_mode = mode || :add
     close_button.title = @sheet_mode.to_s.capitalizedString
-    puts close_button.title
   end
   
   def cancel(sender)
@@ -98,7 +100,24 @@ class FilterWindowController < NSWindowController
       @filters.delete_at(filterTableView.selectedRow)
       save_filters
     else
-      nothing_selected_alert
+      alert
+    end
+  end
+  
+  def browse(sender)
+    # Create the File Open Dialog class.
+    dialog = NSOpenPanel.openPanel
+    # Disable the selection of files in the dialog.
+    dialog.canChooseFiles = false
+    # Enable the selection of directories in the dialog.
+    dialog.canChooseDirectories = true
+    # Disable the selection of multiple items in the dialog.
+    dialog.allowsMultipleSelection = false
+
+    # Display the dialog and process the selected folder
+    if dialog.runModalForDirectory(nil, file:nil) == NSOKButton 
+      selection = dialog.filenames.first
+      location.stringValue = dialog.filenames.first
     end
   end
   
@@ -106,6 +125,7 @@ class FilterWindowController < NSWindowController
     new_filter = {}
     new_filter[:inclusive_rules] = inclusive_name.stringValue.split(',').map{|rule| rule.strip} unless inclusive_name.stringValue.empty?
     new_filter[:exclusive_rules] = exclusive_name.stringValue.split(',').map{|rule| rule.strip} unless exclusive_name.stringValue.empty?
+    new_filter[:location]        = location.stringValue
     unless new_filter.empty?
      @filters << new_filter
      save_filters
@@ -116,6 +136,7 @@ class FilterWindowController < NSWindowController
     updated_rule = {}
     updated_rule[:inclusive_rules] = inclusive_name.stringValue.split(',').map{|rule| rule.strip}
     updated_rule[:exclusive_rules] = exclusive_name.stringValue.split(',').map{|rule| rule.strip}
+    updated_rule[:location]        = location.stringValue
     @filters[filterTableView.selectedRow] = updated_rule
     save_filters
   end
@@ -126,13 +147,12 @@ class FilterWindowController < NSWindowController
     filterTableView.reloadData
   end
   
-  def nothing_selected_alert
-    NSAlert.alertWithMessageText('Nothing Selected', 
+  def alert(title='Nothing Selected', message='You need to select a row before clicking on this button.')
+    NSAlert.alertWithMessageText(title, 
                                     defaultButton: 'OK',
                                     alternateButton: nil, 
                                     otherButton: 'Cancel',
-                                    informativeTextWithFormat: 'You need to select a row before clicking on this button.').runModal
+                                    informativeTextWithFormat: message).runModal
   end
   
 end
-

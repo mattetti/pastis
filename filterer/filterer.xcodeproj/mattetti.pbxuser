@@ -25,9 +25,9 @@
 				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
 				PBXFileTableDataSourceColumnWidthsKey = (
 					20,
-					344,
+					793,
 					20,
-					48.16259765625,
+					48,
 					43,
 					43,
 					20,
@@ -42,24 +42,35 @@
 					PBXFileDataSource_Target_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 278118795;
-			PBXWorkspaceStateSaveDate = 278118795;
+			PBXPerProjectTemplateStateSaveDate = 278185318;
+			PBXWorkspaceStateSaveDate = 278185318;
 		};
 		perUserProjectItems = {
-			2B5280671093C35400A4A670 /* PBXBookmark */ = 2B5280671093C35400A4A670 /* PBXBookmark */;
-			2B52806C1093C8D200A4A670 /* PBXBookmark */ = 2B52806C1093C8D200A4A670 /* PBXBookmark */;
+			2B3D94B9109537E400AF600E /* PBXBookmark */ = 2B3D94B9109537E400AF600E /* PBXBookmark */;
+			2B3D94BA109537E400AF600E /* PBXBookmark */ = 2B3D94BA109537E400AF600E /* PBXBookmark */;
+			2B3D94BB109537E400AF600E /* PBXTextBookmark */ = 2B3D94BB109537E400AF600E /* PBXTextBookmark */;
 		};
 		sourceControlManager = 2BA75F021092C7E8000FFCB0 /* Source Control */;
 		userBuildSettings = {
 		};
 	};
-	2B5280671093C35400A4A670 /* PBXBookmark */ = {
+	2B3D94B9109537E400AF600E /* PBXBookmark */ = {
 		isa = PBXBookmark;
 		fRef = 2B52804D1093C1AF00A4A670 /* pastis.icns */;
 	};
-	2B52806C1093C8D200A4A670 /* PBXBookmark */ = {
+	2B3D94BA109537E400AF600E /* PBXBookmark */ = {
 		isa = PBXBookmark;
-		fRef = 2B52804D1093C1AF00A4A670 /* pastis.icns */;
+		fRef = 2BA75F001092C7E8000FFCB0 /* filter_window_controller.rb */;
+	};
+	2B3D94BB109537E400AF600E /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 2BA75F001092C7E8000FFCB0 /* filter_window_controller.rb */;
+		name = "filter_window_controller.rb: 158";
+		rLen = 0;
+		rLoc = 4852;
+		rType = 0;
+		vrLen = 934;
+		vrLoc = 3919;
 	};
 	2BA75EF21092C7D7000FFCB0 /* filterer */ = {
 		isa = PBXExecutable;
@@ -93,9 +104,9 @@
 	};
 	2BA75F001092C7E8000FFCB0 /* filter_window_controller.rb */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {835, 502}}";
-			sepNavSelRange = "{0, 0}";
-			sepNavVisRange = "{0, 119}";
+			sepNavIntBoundsRect = "{{0, 0}, {971, 2544}}";
+			sepNavSelRange = "{4852, 0}";
+			sepNavVisRange = "{3919, 934}";
 			sepNavWindowFrame = "{{55, 143}, {894, 630}}";
 		};
 	};

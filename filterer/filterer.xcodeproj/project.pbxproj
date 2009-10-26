@@ -99,6 +99,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				2BA75F001092C7E8000FFCB0 /* filter_window_controller.rb */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -142,14 +143,12 @@
 		29B97314FDCFA39411CA2CEA /* filterer */ = {
 			isa = PBXGroup;
 			children = (
-				2B52804D1093C1AF00A4A670 /* pastis.icns */,
 				172754AE1075979200D0347B /* Tests */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
-				2BA75F001092C7E8000FFCB0 /* filter_window_controller.rb */,
 			);
 			name = filterer;
 			sourceTree = "<group>";
@@ -166,6 +165,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				2B52804D1093C1AF00A4A670 /* pastis.icns */,
 				8D1107310486CEB800E47090 /* Info.plist */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 				29B97318FDCFA39411CA2CEA /* MainMenu.nib */,

@@ -37,7 +37,7 @@ class Pastis
   TORRENTS_LOCAL_PATH = File.expand_path("./torrents/")     # AKA the glass
   PRUNE_FILES_AFTER   = Time.now - (60 * 60 * 24 * 31)                                              
   raise "You need to have a filters.yml file, check the example file" unless File.exist?(ROOT + "/filters.yml")
-  FILTERS             = YAML.load(File.open(ROOT + '/filters.yml', 'r')).map{|raw| ::Pastis::Filter.new(raw)}
+  FILTERS             = YAML.load(File.expand_path('~/pastis_filters.yml', 'r')).map{|raw| ::Pastis::Filter.new(raw)}
    
   attr_reader :client, :server 
    
