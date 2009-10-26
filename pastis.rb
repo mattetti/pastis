@@ -28,14 +28,14 @@ begin
 rescue
   puts "You need to install the transmission-client gem to feed transmission."
 else
-  require 'lib/transmission'
+  require File.expand_path('lib/transmission')
 end
 ROOT = File.expand_path(File.dirname(__FILE__))
 # Dir.glob(ROOT + "/lib/*.rb").each{|file| require File.expand_path(file)}
 # let's not load ricard for now
-require 'lib/logs'
-require 'lib/parser'
-require 'lib/filter'
+require File.expand_path('lib/logs')
+require File.expand_path('lib/parser')
+require File.expand_path('lib/filter')
 begin
   require 'nokogiri'
 rescue LoadError   
