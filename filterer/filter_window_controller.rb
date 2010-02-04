@@ -5,6 +5,7 @@
 # Copyright 2009 m|a agile. All rights reserved.
 
 require 'yaml'
+require 'filter'
 
 class FilterWindowController < NSWindowController
  # windows/panels
@@ -16,7 +17,8 @@ class FilterWindowController < NSWindowController
 
   def awakeFromNib
     retrieve_filters
-    filterTableView.doubleAction = "edit:"
+    # define the selector to call when the user double clicks
+    filterTableView.doubleAction = "edit:"    
   end
   
   def windowWillClose(sender)
@@ -32,25 +34,48 @@ class FilterWindowController < NSWindowController
   end
   
   def retrieve_filters
-    @filters = YAML.load_file(yaml_file) || []
+    @filters = YAML.load_file(yaml_file).map{|data| Filter.new(data)} || []
+    sortable_filters
     @filterTableView.dataSource = self
+  end
+  
+  def sortable_filters
+    def @filters.sorted_order=(val); @sorted_order = val; end
+    def @filters.sorted_order; @sorted_order; end
+    @filters.sorted_order = 'asc'
+    @filters.sort!{|a,b| a.inclusive_rules.first <=> b.inclusive_rules.first}
   end
   
   def numberOfRowsInTableView(view)
     @filters.size
+  end
+  
+  def tableView(view, sortDescriptorsDidChange: descriptors)
+    if @filters.sorted_order == 'asc'
+      @filters.sort!{|b,a| a.inclusive_rules.first <=> b.inclusive_rules.first}
+      @filters.sorted_order = 'desc'
+    else
+      @filters.sort!{|a,b| a.inclusive_rules.first <=> b.inclusive_rules.first}
+      @filters.sorted_order = 'asc'
+    end
+    filterTableView.reloadData
   end
 
   def tableView(view, objectValueForTableColumn:column, row:index)
     filter = @filters[index]
     case column.identifier
       when 'inclusive'
-        filter[:inclusive_rules] ? filter[:inclusive_rules].join(', ') : ""
+        filter.inclusive_rules ? filter.inclusive_rules.join(', ') : ""
       when 'exclusive'
-        filter[:exclusive_rules] ? filter[:exclusive_rules].join(', ') : ""
+        filter.exclusive_rules ? filter.exclusive_rules.join(', ') : ""
       when 'location'
-        filter[:location] ? filter[:location] : ""
+        filter.location || ""
     end
   end
+  
+#   def tableView(view, didClickTableColumn:column)
+#     puts "pressed"
+#   end
   
   def add(sender, mode=nil)
     # use a flag to set if the view should be in add or edit mode
@@ -66,9 +91,9 @@ class FilterWindowController < NSWindowController
   
   def edit(sender)
     if filterTableView.selectedRow != -1
-      inclusive_name.stringValue = @filters[filterTableView.selectedRow][:inclusive_rules].join(', ') if @filters[filterTableView.selectedRow][:inclusive_rules]
-      exclusive_name.stringValue = @filters[filterTableView.selectedRow][:exclusive_rules].join(', ') if @filters[filterTableView.selectedRow][:exclusive_rules]
-      location.stringValue =  @filters[filterTableView.selectedRow][:location] || ''
+      inclusive_name.stringValue = @filters[filterTableView.selectedRow].inclusive_rules.join(', ') if @filters[filterTableView.selectedRow].inclusive_rules
+      exclusive_name.stringValue = @filters[filterTableView.selectedRow].exclusive_rules.join(', ') if @filters[filterTableView.selectedRow].exclusive_rules
+      location.stringValue =  @filters[filterTableView.selectedRow].location || ''
       add(nil, :update)
     else
       alert
@@ -123,10 +148,10 @@ class FilterWindowController < NSWindowController
   end
   
   def add_filter!
-    new_filter = {}
-    new_filter[:inclusive_rules] = inclusive_name.stringValue.split(',').map{|rule| rule.strip} unless inclusive_name.stringValue.empty?
-    new_filter[:exclusive_rules] = exclusive_name.stringValue.split(',').map{|rule| rule.strip} unless exclusive_name.stringValue.empty?
-    new_filter[:location]        = location.stringValue
+    new_filter = Filter.new
+    new_filter.inclusive_rules = inclusive_name.stringValue.split(',').map{|rule| rule.strip} unless inclusive_name.stringValue.empty?
+    new_filter.exclusive_rules = exclusive_name.stringValue.split(',').map{|rule| rule.strip} unless exclusive_name.stringValue.empty?
+    new_filter.location        = location.stringValue
     unless new_filter.empty?
      @filters << new_filter
      save_filters
@@ -134,16 +159,16 @@ class FilterWindowController < NSWindowController
   end
   
   def edit_filter!
-    updated_rule = {}
-    updated_rule[:inclusive_rules] = inclusive_name.stringValue.split(',').map{|rule| rule.strip}
-    updated_rule[:exclusive_rules] = exclusive_name.stringValue.split(',').map{|rule| rule.strip}
-    updated_rule[:location]        = location.stringValue
+    updated_rule = Filter.new
+    updated_rule.inclusive_rules = inclusive_name.stringValue.split(',').map{|rule| rule.strip}
+    updated_rule.exclusive_rules = exclusive_name.stringValue.split(',').map{|rule| rule.strip}
+    updated_rule.location        = location.stringValue
     @filters[filterTableView.selectedRow] = updated_rule
     save_filters
   end
   
-  def save_filters
-    File.open(yaml_file, 'w'){|f| f << @filters.to_yaml}
+  def save_filters    
+    File.open(yaml_file, 'w'){|f| f << @filters.map{|filter| filter.to_hash}.to_yaml}
     retrieve_filters
     filterTableView.reloadData
   end

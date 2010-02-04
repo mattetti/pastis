@@ -33,6 +33,7 @@
 
 /* Begin PBXBuildFile section */
 		2B52804E1093C1AF00A4A670 /* pastis.icns in Resources */ = {isa = PBXBuildFile; fileRef = 2B52804D1093C1AF00A4A670 /* pastis.icns */; };
+		2B9E0455111AC3E5002FE1FC /* filter.rb in Resources */ = {isa = PBXBuildFile; fileRef = 2B9E0454111AC3E5002FE1FC /* filter.rb */; };
 		2BA75F011092C7E8000FFCB0 /* filter_window_controller.rb in Resources */ = {isa = PBXBuildFile; fileRef = 2BA75F001092C7E8000FFCB0 /* filter_window_controller.rb */; };
 		4DE339F70D74FCDD00ADB6EE /* rb_main.rb in Resources */ = {isa = PBXBuildFile; fileRef = 4DE339F60D74FCDD00ADB6EE /* rb_main.rb */; };
 		4DE3BE140D8651D900ECA448 /* MacRuby.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DE3BE130D8651D900ECA448 /* MacRuby.framework */; };
@@ -65,11 +66,12 @@
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		2B52804D1093C1AF00A4A670 /* pastis.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = pastis.icns; sourceTree = "<group>"; };
+		2B9E0454111AC3E5002FE1FC /* filter.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = filter.rb; sourceTree = "<group>"; };
 		2BA75F001092C7E8000FFCB0 /* filter_window_controller.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = filter_window_controller.rb; sourceTree = "<group>"; };
 		4DE339F60D74FCDD00ADB6EE /* rb_main.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = rb_main.rb; sourceTree = "<group>"; };
 		4DE3BE130D8651D900ECA448 /* MacRuby.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MacRuby.framework; path = /Library/Frameworks/MacRuby.framework; sourceTree = "<absolute>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8D1107320486CEB800E47090 /* Pastis.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pastis.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D1107320486CEB800E47090 /* Pastis.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = Pastis.app; path = /Users/mattetti/Code/builds/Release/Pastis.app; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +91,7 @@
 			isa = PBXGroup;
 			children = (
 				2BA75F001092C7E8000FFCB0 /* filter_window_controller.rb */,
+				2B9E0454111AC3E5002FE1FC /* filter.rb */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -124,7 +127,6 @@
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8D1107320486CEB800E47090 /* Pastis.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -222,6 +224,7 @@
 				4DE339F70D74FCDD00ADB6EE /* rb_main.rb in Resources */,
 				2BA75F011092C7E8000FFCB0 /* filter_window_controller.rb in Resources */,
 				2B52804E1093C1AF00A4A670 /* pastis.icns in Resources */,
+				2B9E0455111AC3E5002FE1FC /* filter.rb in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -252,7 +255,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# The macruby_deploy command-line tool will make sure your app will embed the MacRuby framework. Default options will be used. Pass the -h option to get more details.\nPATH=\"$PATH:/usr/local/bin\" macruby_deploy \"$TARGET_BUILD_DIR/$PROJECT_NAME.app\"";
+			shellScript = "# The macruby_deploy command-line tool will make sure your app will embed the MacRuby framework. Default options will be used. Pass the -h option to get more details.\nPATH=\"$PATH:/usr/local/bin\" macruby_deploy \"$TARGET_BUILD_DIR/$PROJECT_NAME.app\" --compile --embed";
 		};
 /* End PBXShellScriptBuildPhase section */
 
