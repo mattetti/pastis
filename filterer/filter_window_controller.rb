@@ -43,7 +43,7 @@ class FilterWindowController < NSWindowController
     def @filters.sorted_order=(val); @sorted_order = val; end
     def @filters.sorted_order; @sorted_order; end
     @filters.sorted_order = 'asc'
-    @filters.sort!{|a,b| a.inclusive_rules.first <=> b.inclusive_rules.first}
+    @filters.sort!{|a,b| a.filter_key <=> b.filter_key}
   end
   
   def numberOfRowsInTableView(view)
@@ -52,10 +52,10 @@ class FilterWindowController < NSWindowController
   
   def tableView(view, sortDescriptorsDidChange: descriptors)
     if @filters.sorted_order == 'asc'
-      @filters.sort!{|b,a| a.inclusive_rules.first <=> b.inclusive_rules.first}
+      @filters.sort!{|b,a| a.filter_key <=> b.filter_key}
       @filters.sorted_order = 'desc'
     else
-      @filters.sort!{|a,b| a.inclusive_rules.first <=> b.inclusive_rules.first}
+      @filters.sort!{|a,b| a.filter_key <=> b.filter_key}
       @filters.sorted_order = 'asc'
     end
     filterTableView.reloadData
@@ -73,10 +73,6 @@ class FilterWindowController < NSWindowController
     end
   end
   
-#   def tableView(view, didClickTableColumn:column)
-#     puts "pressed"
-#   end
-  
   def add(sender, mode=nil)
     # use a flag to set if the view should be in add or edit mode
     # this is a hack that breaks IB
@@ -91,11 +87,11 @@ class FilterWindowController < NSWindowController
   
   def edit(sender)
     if filterTableView.selectedRow != -1
-      inclusive_name.stringValue = @filters[filterTableView.selectedRow].inclusive_rules.join(', ') if @filters[filterTableView.selectedRow].inclusive_rules
-      exclusive_name.stringValue = @filters[filterTableView.selectedRow].exclusive_rules.join(', ') if @filters[filterTableView.selectedRow].exclusive_rules
+      inclusive_name.stringValue = @filters[filterTableView.selectedRow].stringified_inclusive_rules
+      exclusive_name.stringValue = @filters[filterTableView.selectedRow].stringified_exclusive_rules
       location.stringValue =  @filters[filterTableView.selectedRow].location || ''
       add(nil, :update)
-    else
+    elsif sender.class == NSButton
       alert
     end
   end
