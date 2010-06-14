@@ -48,7 +48,13 @@
 		2B1288AD11C606F2008A93D1 /* rss_parser.rb in Resources */ = {isa = PBXBuildFile; fileRef = 2B1288AA11C606F2008A93D1 /* rss_parser.rb */; };
 		2B1288AF11C60724008A93D1 /* pastis.rb in Resources */ = {isa = PBXBuildFile; fileRef = 2B1288AE11C60724008A93D1 /* pastis.rb */; };
 		2B1288B111C60749008A93D1 /* macruby_http.rb in Resources */ = {isa = PBXBuildFile; fileRef = 2B1288B011C60749008A93D1 /* macruby_http.rb */; };
-		2BFA9DA710CDF852007972A1 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BFA9DA510CDF852007972A1 /* MainMenu.xib */; };
+		2B1288CA11C60B84008A93D1 /* pastis.icns in Resources */ = {isa = PBXBuildFile; fileRef = 2B1288C911C60B84008A93D1 /* pastis.icns */; };
+		2B1288D711C60BF1008A93D1 /* filter_window_controller.rb in Resources */ = {isa = PBXBuildFile; fileRef = 2B1288D611C60BF1008A93D1 /* filter_window_controller.rb */; };
+		2B1288DA11C60C69008A93D1 /* table_filter.rb in Resources */ = {isa = PBXBuildFile; fileRef = 2B1288D911C60C69008A93D1 /* table_filter.rb */; };
+		2B1288E511C60DEF008A93D1 /* Filters.nib in Resources */ = {isa = PBXBuildFile; fileRef = 2B1288E311C60DEF008A93D1 /* Filters.nib */; };
+		2B1288FE11C6128A008A93D1 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B1288FD11C6128A008A93D1 /* MainMenu.xib */; };
+		2B12890411C612E2008A93D1 /* application_conroller.rb in Resources */ = {isa = PBXBuildFile; fileRef = 2B12890311C612E2008A93D1 /* application_conroller.rb */; };
+		2B12891011C615E8008A93D1 /* mini_pastis.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B12890F11C615E8008A93D1 /* mini_pastis.png */; };
 		4DE339F70D74FCDD00ADB6EE /* rb_main.rb in Resources */ = {isa = PBXBuildFile; fileRef = 4DE339F60D74FCDD00ADB6EE /* rb_main.rb */; };
 		4DE3BE140D8651D900ECA448 /* MacRuby.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DE3BE130D8651D900ECA448 /* MacRuby.framework */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
@@ -82,7 +88,13 @@
 		2B1288AA11C606F2008A93D1 /* rss_parser.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; name = rss_parser.rb; path = ../../lib/rss_parser.rb; sourceTree = SOURCE_ROOT; };
 		2B1288AE11C60724008A93D1 /* pastis.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; name = pastis.rb; path = ../../pastis.rb; sourceTree = SOURCE_ROOT; };
 		2B1288B011C60749008A93D1 /* macruby_http.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; name = macruby_http.rb; path = ../../vendor/macruby_http.rb; sourceTree = SOURCE_ROOT; };
-		2BFA9DA610CDF852007972A1 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		2B1288C911C60B84008A93D1 /* pastis.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = pastis.icns; sourceTree = "<group>"; };
+		2B1288D611C60BF1008A93D1 /* filter_window_controller.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = filter_window_controller.rb; sourceTree = "<group>"; };
+		2B1288D911C60C69008A93D1 /* table_filter.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = table_filter.rb; sourceTree = "<group>"; };
+		2B1288E411C60DEF008A93D1 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/Filters.nib; sourceTree = "<group>"; };
+		2B1288FD11C6128A008A93D1 /* MainMenu.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
+		2B12890311C612E2008A93D1 /* application_conroller.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = application_conroller.rb; sourceTree = "<group>"; };
+		2B12890F11C615E8008A93D1 /* mini_pastis.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mini_pastis.png; sourceTree = "<group>"; };
 		4DE339F60D74FCDD00ADB6EE /* rb_main.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = rb_main.rb; sourceTree = "<group>"; };
 		4DE3BE130D8651D900ECA448 /* MacRuby.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MacRuby.framework; path = /Library/Frameworks/MacRuby.framework; sourceTree = "<absolute>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -106,10 +118,13 @@
 			isa = PBXGroup;
 			children = (
 				2B1288AE11C60724008A93D1 /* pastis.rb */,
+				2B1288D611C60BF1008A93D1 /* filter_window_controller.rb */,
 				2B1288B011C60749008A93D1 /* macruby_http.rb */,
 				2B1288A811C606F2008A93D1 /* filter.rb */,
 				2B1288A911C606F2008A93D1 /* logs.rb */,
 				2B1288AA11C606F2008A93D1 /* rss_parser.rb */,
+				2B1288D911C60C69008A93D1 /* table_filter.rb */,
+				2B12890311C612E2008A93D1 /* application_conroller.rb */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -175,9 +190,12 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				2BFA9DA510CDF852007972A1 /* MainMenu.xib */,
+				2B12890F11C615E8008A93D1 /* mini_pastis.png */,
+				2B1288C911C60B84008A93D1 /* pastis.icns */,
+				2B1288E311C60DEF008A93D1 /* Filters.nib */,
 				8D1107310486CEB800E47090 /* Info.plist */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
+				2B1288FD11C6128A008A93D1 /* MainMenu.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -240,12 +258,18 @@
 			files = (
 				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
 				4DE339F70D74FCDD00ADB6EE /* rb_main.rb in Resources */,
-				2BFA9DA710CDF852007972A1 /* MainMenu.xib in Resources */,
 				2B1288AB11C606F2008A93D1 /* filter.rb in Resources */,
 				2B1288AC11C606F2008A93D1 /* logs.rb in Resources */,
 				2B1288AD11C606F2008A93D1 /* rss_parser.rb in Resources */,
 				2B1288AF11C60724008A93D1 /* pastis.rb in Resources */,
 				2B1288B111C60749008A93D1 /* macruby_http.rb in Resources */,
+				2B1288CA11C60B84008A93D1 /* pastis.icns in Resources */,
+				2B1288D711C60BF1008A93D1 /* filter_window_controller.rb in Resources */,
+				2B1288DA11C60C69008A93D1 /* table_filter.rb in Resources */,
+				2B1288E511C60DEF008A93D1 /* Filters.nib in Resources */,
+				2B1288FE11C6128A008A93D1 /* MainMenu.xib in Resources */,
+				2B12890411C612E2008A93D1 /* application_conroller.rb in Resources */,
+				2B12891011C615E8008A93D1 /* mini_pastis.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -313,12 +337,12 @@
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
-		2BFA9DA510CDF852007972A1 /* MainMenu.xib */ = {
+		2B1288E311C60DEF008A93D1 /* Filters.nib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				2BFA9DA610CDF852007972A1 /* English */,
+				2B1288E411C60DEF008A93D1 /* English */,
 			);
-			name = MainMenu.xib;
+			name = Filters.nib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -445,6 +469,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
+				PRODUCT_NAME = Pastis;
 				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.5.sdk";
 			};
 			name = Release;

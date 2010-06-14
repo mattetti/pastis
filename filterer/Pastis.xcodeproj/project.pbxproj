@@ -65,13 +65,13 @@
 		29B97319FDCFA39411CA2CEA /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/MainMenu.nib; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		2B1288CE11C60BBF008A93D1 /* Pastis.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pastis.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B52804D1093C1AF00A4A670 /* pastis.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = pastis.icns; sourceTree = "<group>"; };
 		2B9E0454111AC3E5002FE1FC /* filter.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = filter.rb; sourceTree = "<group>"; };
 		2BA75F001092C7E8000FFCB0 /* filter_window_controller.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = filter_window_controller.rb; sourceTree = "<group>"; };
 		4DE339F60D74FCDD00ADB6EE /* rb_main.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = rb_main.rb; sourceTree = "<group>"; };
 		4DE3BE130D8651D900ECA448 /* MacRuby.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MacRuby.framework; path = /Library/Frameworks/MacRuby.framework; sourceTree = "<absolute>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8D1107320486CEB800E47090 /* Pastis.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = Pastis.app; path = /Users/mattetti/Code/builds/Release/Pastis.app; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +127,7 @@
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
+				2B1288CE11C60BBF008A93D1 /* Pastis.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -192,7 +193,7 @@
 			name = Pastis;
 			productInstallPath = "$(HOME)/Applications";
 			productName = filterer;
-			productReference = 8D1107320486CEB800E47090 /* Pastis.app */;
+			productReference = 2B1288CE11C60BBF008A93D1 /* Pastis.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
