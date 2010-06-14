@@ -98,10 +98,14 @@ class Pastis
   end
 
   def check(url="http://www.ezrss.it/feed/")
-    # TODO check that transmission is running, start if not started already
-    torrss = RSSParser.new(url)
-
-    torrss.parse do |item|
+    # Checking that transmission is running, start it otherwise
+    running_apps = NSWorkspace.sharedWorkspace.runningApplications.map{|app| app.localizedName}
+    unless running_apps.include?('Transmission')
+      puts "Transmission not Running, starting now..."
+      NSWorkspace.sharedWorkspace.launchApplication('Transmission')
+    end
+      
+    RSSParser.new(url).parse do |item|
       download_torrent(item)
     end
     save_logs
