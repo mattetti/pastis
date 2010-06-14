@@ -4,3 +4,5 @@ filters.yml
 */.DS_Store
 filterer/build
 filterer/filterer.xcodeproj/mattetti
+app/Pastis/Pastis.xcodeproj/mattetti.mode1v3
+app/Pastis/Pastis.xcodeproj/mattetti.pbxuser

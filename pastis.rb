@@ -3,12 +3,23 @@ require 'net/http'
 require 'json'
 require 'yaml'
 require 'pathname'
-ROOT = Pathname.new File.expand_path(File.dirname(__FILE__))
 
-require ROOT.join('lib/rss_parser')
-require ROOT.join('lib/filter')
-require ROOT.join('lib/logs')
-require ROOT.join('vendor/macruby_http')
+root = Pathname.new File.expand_path(File.dirname(__FILE__))
+# only loading the required files if we are outside of a Cocoa app
+if File.exist?(root.join('lib/rss_parser.rb'))
+  STANDALONE = true
+  require root.join('lib/rss_parser')
+  require root.join('lib/filter')
+  require root.join('lib/logs')
+  require root.join('vendor/macruby_http')
+else
+  # load from the resources folder
+  STANDALONE = false
+  require root.join('rss_parser')
+  require root.join('filter')
+  require root.join('logs')
+  require root.join('macruby_http')
+end
 
 class Pastis  
   

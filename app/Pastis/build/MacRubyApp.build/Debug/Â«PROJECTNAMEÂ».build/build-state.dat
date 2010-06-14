@@ -1,0 +1,174 @@
+T«PROJECTNAME»
+v7
+r0
+t281933944.943647
+cCheck dependencies
+cProcessInfoPlistFile "/Users/mattetti/src/macruby-gitsvn/trunk/misc/xcode-templates/Project Templates/Application/MacRuby Application/build/Debug/«PROJECTNAME».app/Contents/Info.plist" Info.plist
+cCopyStringsFile "/Users/mattetti/src/macruby-gitsvn/trunk/misc/xcode-templates/Project Templates/Application/MacRuby Application/build/Debug/«PROJECTNAME».app/Contents/Resources/English.lproj/InfoPlist.strings" English.lproj/InfoPlist.strings
+cCpResource build/Debug/«PROJECTNAME».app/Contents/Resources/rb_main.rb rb_main.rb
+cCompileXIB "/Users/mattetti/src/macruby-gitsvn/trunk/misc/xcode-templates/Project Templates/Application/MacRuby Application/English.lproj/MainMenu.xib"
+cCompileC build/MacRubyApp.build/Debug/«PROJECTNAME».build/Objects-normal/x86_64/main.o "/Users/mattetti/src/macruby-gitsvn/trunk/misc/xcode-templates/Project Templates/Application/MacRuby Application/main.m" normal x86_64 objective-c com.apple.compilers.gcc.4_2
+cLd "/Users/mattetti/src/macruby-gitsvn/trunk/misc/xcode-templates/Project Templates/Application/MacRuby Application/build/Debug/«PROJECTNAME».app/Contents/MacOS/«PROJECTNAME»" normal x86_64
+cTouch "/Users/mattetti/src/macruby-gitsvn/trunk/misc/xcode-templates/Project Templates/Application/MacRuby Application/build/Debug/«PROJECTNAME».app"
+
+N/Developer/SDKs/MacOSX10.5.sdk
+c000000004A49A9E400000000000000EE
+t1246341604
+s238
+
+N/Developer/SDKs/MacOSX10.5.sdk/Library/Frameworks/MacRuby.framework/Headers/MacRuby.h
+c000000004ACD3422000000000000005F
+t1254962210
+s95
+
+N/Library/Frameworks/MacRuby.framework/MacRuby
+c000000004B18962D0000000001C7A938
+t1259902509
+s29862200
+
+N/System/Library/Frameworks/Cocoa.framework/Cocoa
+c000000004A1F2D63000000000000A5E0
+t1243557219
+s42464
+
+N/Users/mattetti/src/macruby-gitsvn/trunk/misc/xcode-templates/Project Templates/Application/MacRuby Application/English.lproj/InfoPlist.strings
+c000000004A7A747000000000000000D0
+t1249539184
+s208
+
+N/Users/mattetti/src/macruby-gitsvn/trunk/misc/xcode-templates/Project Templates/Application/MacRuby Application/English.lproj/MainMenu.nib
+c000000004A7A74700000000000000088
+t1249539184
+s136
+
+N/Users/mattetti/src/macruby-gitsvn/trunk/misc/xcode-templates/Project Templates/Application/MacRuby Application/English.lproj/MainMenu.xib
+c000000004B1DC08F000000000001B56C
+t1260241039
+s111980
+
+N/Users/mattetti/src/macruby-gitsvn/trunk/misc/xcode-templates/Project Templates/Application/MacRuby Application/build/Debug/«PROJECTNAME».app
+t1260241144
+s102
+
+N/Users/mattetti/src/macruby-gitsvn/trunk/misc/xcode-templates/Project Templates/Application/MacRuby Application/build/Debug/«PROJECTNAME».app/Contents/Info.plist
+t1260241141
+s798
+
+N/Users/mattetti/src/macruby-gitsvn/trunk/misc/xcode-templates/Project Templates/Application/MacRuby Application/build/Debug/«PROJECTNAME».app/Contents/MacOS/«PROJECTNAME»
+t1260241144
+s10280
+
+N/Users/mattetti/src/macruby-gitsvn/trunk/misc/xcode-templates/Project Templates/Application/MacRuby Application/build/Debug/«PROJECTNAME».app/Contents/PkgInfo
+t1260241141
+s8
+
+N/Users/mattetti/src/macruby-gitsvn/trunk/misc/xcode-templates/Project Templates/Application/MacRuby Application/build/Debug/«PROJECTNAME».app/Contents/Resources/English.lproj/InfoPlist.strings
+t1260241142
+s208
+
+N/Users/mattetti/src/macruby-gitsvn/trunk/misc/xcode-templates/Project Templates/Application/MacRuby Application/build/Debug/«PROJECTNAME».app/Contents/Resources/English.lproj/MainMenu.nib
+t1260241142
+s19260
+
+N/Users/mattetti/src/macruby-gitsvn/trunk/misc/xcode-templates/Project Templates/Application/MacRuby Application/build/Debug/«PROJECTNAME».app/Contents/Resources/rb_main.rb
+t1260241142
+s581
+
+N/Users/mattetti/src/macruby-gitsvn/trunk/misc/xcode-templates/Project Templates/Application/MacRuby Application/build/MacRubyApp.build/Debug/«PROJECTNAME».build/Objects-normal/x86_64/main.o
+t1260241144
+s11720
+
+N/Users/mattetti/src/macruby-gitsvn/trunk/misc/xcode-templates/Project Templates/Application/MacRuby Application/build/MacRubyApp.build/Debug/«PROJECTNAME».build/Objects-normal/x86_64/«PROJECTNAME».LinkFileList
+c000000004B1DC0F500000000000000C0
+t1260241141
+s192
+
+N/Users/mattetti/src/macruby-gitsvn/trunk/misc/xcode-templates/Project Templates/Application/MacRuby Application/main.m
+c000000004A7A74700000000000000103
+t1249539184
+s259
+i<MacRuby/MacRuby.h>
+
+N/Users/mattetti/src/macruby-gitsvn/trunk/misc/xcode-templates/Project Templates/Application/MacRuby Application/rb_main.rb
+c000000004B179A280000000000000245
+t1259837992
+s581
+
+NInfo.plist
+c000000004A7A74700000000000000351
+t1249539184
+s849
+
+CCheck dependencies
+r0
+lSLF07#2@18"Check dependencies281933941#281933941#0(0"0(0#1#0"4300885448#0"0#
+
+CCompileC build/MacRubyApp.build/Debug/«PROJECTNAME».build/Objects-normal/x86_64/main.o "/Users/mattetti/src/macruby-gitsvn/trunk/misc/xcode-templates/Project Templates/Application/MacRuby Application/main.m" normal x86_64 objective-c com.apple.compilers.gcc.4_2
+s281933942.336397
+e281933944.190069
+r1
+xCompileC
+xbuild/MacRubyApp.build/Debug/«PROJECTNAME».build/Objects-normal/x86_64/main.o
+x/Users/mattetti/src/macruby-gitsvn/trunk/misc/xcode-templates/Project Templates/Application/MacRuby Application/main.m
+xnormal
+xx86_64
+xobjective-c
+xcom.apple.compilers.gcc.4_2
+lSLF07#2@126"Compile /Users/mattetti/src/macruby-gitsvn/trunk/misc/xcode-templates/Project Templates/Application/MacRuby Application/main.m281933942#281933944#0(0"0(0#0#118"/Users/mattetti/src/macruby-gitsvn/trunk/misc/xcode-templates/Project Templates/Application/MacRuby Application/main.m4300885448#1700"    cd "/Users/mattetti/src/macruby-gitsvn/trunk/misc/xcode-templates/Project Templates/Application/MacRuby Application"    setenv LANG en_US.US-ASCII    /Developer/usr/bin/gcc-4.2 -x objective-c -arch x86_64 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/SDKs/MacOSX10.5.sdk -mfix-and-continue -fobjc-gc-only -mmacosx-version-min=10.5 -gdwarf-2 "-I/Users/mattetti/src/macruby-gitsvn/trunk/misc/xcode-templates/Project Templates/Application/MacRuby Application/build/MacRubyApp.build/Debug/«PROJECTNAME».build/«PROJECTNAME».hmap" "-F/Users/mattetti/src/macruby-gitsvn/trunk/misc/xcode-templates/Project Templates/Application/MacRuby Application/build/Debug" "-F/Users/mattetti/src/macruby-gitsvn/trunk/misc/xcode-templates/Project Templates/Application/MacRuby Application/build/Debug" "-I/Users/mattetti/src/macruby-gitsvn/trunk/misc/xcode-templates/Project Templates/Application/MacRuby Application/build/Debug/include" "-I/Users/mattetti/src/macruby-gitsvn/trunk/misc/xcode-templates/Project Templates/Application/MacRuby Application/build/MacRubyApp.build/Debug/«PROJECTNAME».build/DerivedSources/x86_64" "-I/Users/mattetti/src/macruby-gitsvn/trunk/misc/xcode-templates/Project Templates/Application/MacRuby Application/build/MacRubyApp.build/Debug/«PROJECTNAME».build/DerivedSources" -c "/Users/mattetti/src/macruby-gitsvn/trunk/misc/xcode-templates/Project Templates/Application/MacRuby Application/main.m" -o "/Users/mattetti/src/macruby-gitsvn/trunk/misc/xcode-templates/Project Templates/Application/MacRuby Application/build/MacRubyApp.build/Debug/«PROJECTNAME».build/Objects-normal/x86_64/main.o"0#
+
+CCompileXIB "/Users/mattetti/src/macruby-gitsvn/trunk/misc/xcode-templates/Project Templates/Application/MacRuby Application/English.lproj/MainMenu.xib"
+s281933941.965736
+e281933942.336283
+r1
+xCompileXIB
+x/Users/mattetti/src/macruby-gitsvn/trunk/misc/xcode-templates/Project Templates/Application/MacRuby Application/English.lproj/MainMenu.xib
+lSLF07#2@37"CompileXIB English.lproj/MainMenu.xib281933941#281933942#0(0"0(0#0#138"/Users/mattetti/src/macruby-gitsvn/trunk/misc/xcode-templates/Project Templates/Application/MacRuby Application/English.lproj/MainMenu.xib4300885448#560"    cd "/Users/mattetti/src/macruby-gitsvn/trunk/misc/xcode-templates/Project Templates/Application/MacRuby Application"    /Developer/usr/bin/ibtool --errors --warnings --notices --output-format human-readable-text --compile "/Users/mattetti/src/macruby-gitsvn/trunk/misc/xcode-templates/Project Templates/Application/MacRuby Application/build/Debug/«PROJECTNAME».app/Contents/Resources/English.lproj/MainMenu.nib" "/Users/mattetti/src/macruby-gitsvn/trunk/misc/xcode-templates/Project Templates/Application/MacRuby Application/English.lproj/MainMenu.xib"0#
+
+CCopyStringsFile "/Users/mattetti/src/macruby-gitsvn/trunk/misc/xcode-templates/Project Templates/Application/MacRuby Application/build/Debug/«PROJECTNAME».app/Contents/Resources/English.lproj/InfoPlist.strings" English.lproj/InfoPlist.strings
+s281933941.930820
+e281933942.182458
+r1
+xCopyStringsFile
+x/Users/mattetti/src/macruby-gitsvn/trunk/misc/xcode-templates/Project Templates/Application/MacRuby Application/build/Debug/«PROJECTNAME».app/Contents/Resources/English.lproj/InfoPlist.strings
+xEnglish.lproj/InfoPlist.strings
+lSLF07#2@36"Copy English.lproj/InfoPlist.strings281933941#281933942#0(0"0(0#0#143"/Users/mattetti/src/macruby-gitsvn/trunk/misc/xcode-templates/Project Templates/Application/MacRuby Application/English.lproj/InfoPlist.strings4300885448#524"    cd "/Users/mattetti/src/macruby-gitsvn/trunk/misc/xcode-templates/Project Templates/Application/MacRuby Application"    setenv ICONV /usr/bin/iconv    /Developer/Library/Xcode/Plug-ins/CoreBuildTasks.xcplugin/Contents/Resources/copystrings --validate --inputencoding utf-16 --outputencoding UTF-16 English.lproj/InfoPlist.strings --outdir "/Users/mattetti/src/macruby-gitsvn/trunk/misc/xcode-templates/Project Templates/Application/MacRuby Application/build/Debug/«PROJECTNAME».app/Contents/Resources/English.lproj"0#
+
+CCpResource build/Debug/«PROJECTNAME».app/Contents/Resources/rb_main.rb rb_main.rb
+s281933941.963813
+e281933942.036381
+r1
+xCpResource
+xbuild/Debug/«PROJECTNAME».app/Contents/Resources/rb_main.rb
+xrb_main.rb
+lSLF07#2@15"Copy rb_main.rb281933941#281933942#0(0"0(0#0#122"/Users/mattetti/src/macruby-gitsvn/trunk/misc/xcode-templates/Project Templates/Application/MacRuby Application/rb_main.rb4300885448#559"    cd "/Users/mattetti/src/macruby-gitsvn/trunk/misc/xcode-templates/Project Templates/Application/MacRuby Application"    /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp -exclude .DS_Store -exclude CVS -exclude .svn -resolve-src-symlinks "/Users/mattetti/src/macruby-gitsvn/trunk/misc/xcode-templates/Project Templates/Application/MacRuby Application/rb_main.rb" "/Users/mattetti/src/macruby-gitsvn/trunk/misc/xcode-templates/Project Templates/Application/MacRuby Application/build/Debug/«PROJECTNAME».app/Contents/Resources"0#
+
+CLd "/Users/mattetti/src/macruby-gitsvn/trunk/misc/xcode-templates/Project Templates/Application/MacRuby Application/build/Debug/«PROJECTNAME».app/Contents/MacOS/«PROJECTNAME»" normal x86_64
+s281933944.190212
+e281933944.909496
+r1
+xLd
+x/Users/mattetti/src/macruby-gitsvn/trunk/misc/xcode-templates/Project Templates/Application/MacRuby Application/build/Debug/«PROJECTNAME».app/Contents/MacOS/«PROJECTNAME»
+xnormal
+xx86_64
+lSLF07#2@179"Link /Users/mattetti/src/macruby-gitsvn/trunk/misc/xcode-templates/Project Templates/Application/MacRuby Application/build/Debug/«PROJECTNAME».app/Contents/MacOS/«PROJECTNAME»281933944#281933944#0(0"0(0#0#0"4300885448#1099"    cd "/Users/mattetti/src/macruby-gitsvn/trunk/misc/xcode-templates/Project Templates/Application/MacRuby Application"    setenv MACOSX_DEPLOYMENT_TARGET 10.5    /Developer/usr/bin/gcc-4.2 -arch x86_64 -isysroot /Developer/SDKs/MacOSX10.5.sdk "-L/Users/mattetti/src/macruby-gitsvn/trunk/misc/xcode-templates/Project Templates/Application/MacRuby Application/build/Debug" "-F/Users/mattetti/src/macruby-gitsvn/trunk/misc/xcode-templates/Project Templates/Application/MacRuby Application/build/Debug" "-F/Users/mattetti/src/macruby-gitsvn/trunk/misc/xcode-templates/Project Templates/Application/MacRuby Application/build/Debug" -filelist "/Users/mattetti/src/macruby-gitsvn/trunk/misc/xcode-templates/Project Templates/Application/MacRuby Application/build/MacRubyApp.build/Debug/«PROJECTNAME».build/Objects-normal/x86_64/«PROJECTNAME».LinkFileList" -mmacosx-version-min=10.5 -framework Cocoa -framework MacRuby -o "/Users/mattetti/src/macruby-gitsvn/trunk/misc/xcode-templates/Project Templates/Application/MacRuby Application/build/Debug/«PROJECTNAME».app/Contents/MacOS/«PROJECTNAME»"0#
+
+CProcessInfoPlistFile "/Users/mattetti/src/macruby-gitsvn/trunk/misc/xcode-templates/Project Templates/Application/MacRuby Application/build/Debug/«PROJECTNAME».app/Contents/Info.plist" Info.plist
+s281933941.927049
+e281933941.930714
+r1
+xProcessInfoPlistFile
+x/Users/mattetti/src/macruby-gitsvn/trunk/misc/xcode-templates/Project Templates/Application/MacRuby Application/build/Debug/«PROJECTNAME».app/Contents/Info.plist
+xInfo.plist
+lSLF07#2@18"Process Info.plist281933941#281933941#0(0"0(0#0#122"/Users/mattetti/src/macruby-gitsvn/trunk/misc/xcode-templates/Project Templates/Application/MacRuby Application/Info.plist4300885448#543"    cd "/Users/mattetti/src/macruby-gitsvn/trunk/misc/xcode-templates/Project Templates/Application/MacRuby Application"    builtin-infoPlistUtility Info.plist -genpkginfo "/Users/mattetti/src/macruby-gitsvn/trunk/misc/xcode-templates/Project Templates/Application/MacRuby Application/build/Debug/«PROJECTNAME».app/Contents/PkgInfo" -expandbuildsettings -platform macosx -o "/Users/mattetti/src/macruby-gitsvn/trunk/misc/xcode-templates/Project Templates/Application/MacRuby Application/build/Debug/«PROJECTNAME».app/Contents/Info.plist"0#
+
+CStripNIB "/Users/mattetti/src/macruby-gitsvn/trunk/misc/xcode-templates/Project Templates/Application/MacRuby Application/English.lproj/MainMenu.nib"
+r0
+
+CTouch "/Users/mattetti/src/macruby-gitsvn/trunk/misc/xcode-templates/Project Templates/Application/MacRuby Application/build/Debug/«PROJECTNAME».app"
+s281933944.909595
+e281933944.943585
+r1
+xTouch
+x/Users/mattetti/src/macruby-gitsvn/trunk/misc/xcode-templates/Project Templates/Application/MacRuby Application/build/Debug/«PROJECTNAME».app
+lSLF07#2@149"Touch /Users/mattetti/src/macruby-gitsvn/trunk/misc/xcode-templates/Project Templates/Application/MacRuby Application/build/Debug/«PROJECTNAME».app281933944#281933944#0(0"0(0#0#0"4300885448#289"    cd "/Users/mattetti/src/macruby-gitsvn/trunk/misc/xcode-templates/Project Templates/Application/MacRuby Application"    /usr/bin/touch -c "/Users/mattetti/src/macruby-gitsvn/trunk/misc/xcode-templates/Project Templates/Application/MacRuby Application/build/Debug/«PROJECTNAME».app"0#
+
