@@ -53,8 +53,12 @@
 		2B1288DA11C60C69008A93D1 /* table_filter.rb in Resources */ = {isa = PBXBuildFile; fileRef = 2B1288D911C60C69008A93D1 /* table_filter.rb */; };
 		2B1288E511C60DEF008A93D1 /* Filters.nib in Resources */ = {isa = PBXBuildFile; fileRef = 2B1288E311C60DEF008A93D1 /* Filters.nib */; };
 		2B1288FE11C6128A008A93D1 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B1288FD11C6128A008A93D1 /* MainMenu.xib */; };
-		2B12890411C612E2008A93D1 /* application_conroller.rb in Resources */ = {isa = PBXBuildFile; fileRef = 2B12890311C612E2008A93D1 /* application_conroller.rb */; };
+		2B12890411C612E2008A93D1 /* application_controller.rb in Resources */ = {isa = PBXBuildFile; fileRef = 2B12890311C612E2008A93D1 /* application_controller.rb */; };
 		2B12891011C615E8008A93D1 /* mini_pastis.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B12890F11C615E8008A93D1 /* mini_pastis.png */; };
+		2B1289A911C696D5008A93D1 /* Settings.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B1289A811C696D5008A93D1 /* Settings.xib */; };
+		2B1289AB11C696EA008A93D1 /* Logs.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B1289AA11C696EA008A93D1 /* Logs.xib */; };
+		2B1289B911C69873008A93D1 /* logs_controller.rb in Resources */ = {isa = PBXBuildFile; fileRef = 2B1289B811C69873008A93D1 /* logs_controller.rb */; };
+		2B1289BB11C6987D008A93D1 /* settings_controller.rb in Resources */ = {isa = PBXBuildFile; fileRef = 2B1289BA11C6987D008A93D1 /* settings_controller.rb */; };
 		4DE339F70D74FCDD00ADB6EE /* rb_main.rb in Resources */ = {isa = PBXBuildFile; fileRef = 4DE339F60D74FCDD00ADB6EE /* rb_main.rb */; };
 		4DE3BE140D8651D900ECA448 /* MacRuby.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DE3BE130D8651D900ECA448 /* MacRuby.framework */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
@@ -93,8 +97,12 @@
 		2B1288D911C60C69008A93D1 /* table_filter.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = table_filter.rb; sourceTree = "<group>"; };
 		2B1288E411C60DEF008A93D1 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/Filters.nib; sourceTree = "<group>"; };
 		2B1288FD11C6128A008A93D1 /* MainMenu.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
-		2B12890311C612E2008A93D1 /* application_conroller.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = application_conroller.rb; sourceTree = "<group>"; };
+		2B12890311C612E2008A93D1 /* application_controller.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = application_controller.rb; sourceTree = "<group>"; };
 		2B12890F11C615E8008A93D1 /* mini_pastis.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mini_pastis.png; sourceTree = "<group>"; };
+		2B1289A811C696D5008A93D1 /* Settings.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Settings.xib; sourceTree = "<group>"; };
+		2B1289AA11C696EA008A93D1 /* Logs.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Logs.xib; sourceTree = "<group>"; };
+		2B1289B811C69873008A93D1 /* logs_controller.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = logs_controller.rb; sourceTree = "<group>"; };
+		2B1289BA11C6987D008A93D1 /* settings_controller.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = settings_controller.rb; sourceTree = "<group>"; };
 		4DE339F60D74FCDD00ADB6EE /* rb_main.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = rb_main.rb; sourceTree = "<group>"; };
 		4DE3BE130D8651D900ECA448 /* MacRuby.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MacRuby.framework; path = /Library/Frameworks/MacRuby.framework; sourceTree = "<absolute>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -118,13 +126,11 @@
 			isa = PBXGroup;
 			children = (
 				2B1288AE11C60724008A93D1 /* pastis.rb */,
-				2B1288D611C60BF1008A93D1 /* filter_window_controller.rb */,
 				2B1288B011C60749008A93D1 /* macruby_http.rb */,
 				2B1288A811C606F2008A93D1 /* filter.rb */,
 				2B1288A911C606F2008A93D1 /* logs.rb */,
 				2B1288AA11C606F2008A93D1 /* rss_parser.rb */,
 				2B1288D911C60C69008A93D1 /* table_filter.rb */,
-				2B12890311C612E2008A93D1 /* application_conroller.rb */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -168,6 +174,7 @@
 		29B97314FDCFA39411CA2CEA /* Pastis */ = {
 			isa = PBXGroup;
 			children = (
+				2B1289B711C6985E008A93D1 /* Controllers */,
 				172754AE1075979200D0347B /* Tests */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
@@ -196,6 +203,8 @@
 				8D1107310486CEB800E47090 /* Info.plist */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 				2B1288FD11C6128A008A93D1 /* MainMenu.xib */,
+				2B1289A811C696D5008A93D1 /* Settings.xib */,
+				2B1289AA11C696EA008A93D1 /* Logs.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -207,6 +216,17 @@
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		2B1289B711C6985E008A93D1 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				2B1288D611C60BF1008A93D1 /* filter_window_controller.rb */,
+				2B12890311C612E2008A93D1 /* application_controller.rb */,
+				2B1289B811C69873008A93D1 /* logs_controller.rb */,
+				2B1289BA11C6987D008A93D1 /* settings_controller.rb */,
+			);
+			name = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -268,8 +288,12 @@
 				2B1288DA11C60C69008A93D1 /* table_filter.rb in Resources */,
 				2B1288E511C60DEF008A93D1 /* Filters.nib in Resources */,
 				2B1288FE11C6128A008A93D1 /* MainMenu.xib in Resources */,
-				2B12890411C612E2008A93D1 /* application_conroller.rb in Resources */,
+				2B12890411C612E2008A93D1 /* application_controller.rb in Resources */,
 				2B12891011C615E8008A93D1 /* mini_pastis.png in Resources */,
+				2B1289A911C696D5008A93D1 /* Settings.xib in Resources */,
+				2B1289AB11C696EA008A93D1 /* Logs.xib in Resources */,
+				2B1289B911C69873008A93D1 /* logs_controller.rb in Resources */,
+				2B1289BB11C6987D008A93D1 /* settings_controller.rb in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
