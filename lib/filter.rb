@@ -29,6 +29,10 @@ class Pastis
       end 
     end
     
+    def self.default
+      [{:inclusive_rules => ['Weeds'], :exclusive_rules => ['720p'], :location => nil}]
+    end
+    
   end 
     
 end

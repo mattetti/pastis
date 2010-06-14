@@ -1,6 +1,6 @@
 class Pastis
   module Logs          
-    LOG_FILE = ROOT + '/.rsslog'
+    LOG_FILE = '~/.pastis-rsslog'.stringByStandardizingPath
 
     def log
       @log ||= File.exist?(LOG_FILE) ? File.open(LOG_FILE, 'r+') : File.new(LOG_FILE, 'w+')
@@ -29,7 +29,7 @@ class Pastis
     end
 
     def clear_logs
-      `rm .rsslog`
+      `rm #{LOG_FILE}`
     end        
 
   end 
