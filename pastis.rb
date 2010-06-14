@@ -111,7 +111,7 @@ class Pastis
   # returns an array with the torrent path and the torrent destination if available
   def find_torrents_path_to_user(title, filename)
     if filters.map{|filter| filter.to_download?(title)}.uniq.include?(true) 
-      [File.join(torrents_local_path, 'to_download', filename), FILTERS.detect{|filter| filter.to_download?(title)}.location ]
+      [File.join(torrents_local_path, 'to_download', filename), filters.detect{|filter| filter.to_download?(title)}.location ]
     else
       [File.join(torrents_local_path, filename), nil]
     end
