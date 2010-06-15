@@ -12,6 +12,7 @@ if File.exist?(root.join('lib/rss_parser.rb'))
   require root.join('lib/filter')
   require root.join('lib/logs')
   require root.join('vendor/macruby_http')
+  require root.join('lib/logger')
 else
   # load from the resources folder
   STANDALONE = false
@@ -19,12 +20,18 @@ else
   require root.join('filter')
   require root.join('logs')
   require root.join('macruby_http')
+  require root.join('logger')
 end
+
 
 class Pastis  
   
   include MacRubyHelper::DownloadHelper
   include Logs
+  
+  def self.logger
+    @logger ||= Logger.new
+  end
   
   def torrents_local_path
     path = NSUserDefaults.standardUserDefaults['pastis.torrents_path']
@@ -66,10 +73,10 @@ class Pastis
         add_to_transmission_queue(torrent_path, download_destination)
       elsif resp.status_code == 200
         @t_added ||= []
-        puts "[added] #{torrent_path}" unless @t_added.include?(torrent_path)
+        Pastis.logger << "[added] #{torrent_path}" unless @t_added.include?(torrent_path)
         @t_added << torrent_path
       else
-        puts "something went wrong when adding torrent to download: \n#{resp.inspect}"
+        Pastis.logger << "something went wrong when adding torrent to download: \n#{resp.inspect}"
       end
     end
   end
@@ -79,7 +86,7 @@ class Pastis
       @filters ||= YAML.load_file(filters_path).map{|raw| ::Pastis::Filter.new(raw)}
     rescue Exception => e
       if e.message =~ /No such file or directory/
-        puts "Default filters are missing, creating one now."
+        Pastis.logger << "Default filters are missing, creating one now."
         create_default_filters
         retry
       else
@@ -96,7 +103,7 @@ class Pastis
     if not_in_logs?(item.guid)
       url = item.enclosure['url']
       filename = NSURL.URLWithString(url).lastPathComponent
-      puts "[new] #{filename}"
+      Pastis.logger << "[new] #{filename}"
       torrent_path, download_destination = find_torrents_path_to_user(item.title, filename)
       download url, :immediate => true, :save_to => torrent_path, :url => url do |torrent|
         if torrent.status_code == 200          
@@ -108,19 +115,30 @@ class Pastis
     
   end
 
-  def check(url="http://www.ezrss.it/feed/")
+  def check(url=nil)
     # Checking that transmission is running, start it otherwise
     running_apps = NSWorkspace.sharedWorkspace.runningApplications.map{|app| app.localizedName}
     unless running_apps.include?('Transmission')
-      puts "Transmission not Running, starting now..."
+      Pastis.logger << "Transmission not Running, starting now..."
       NSWorkspace.sharedWorkspace.launchApplication('Transmission')
     end
-      
+     
+    url ||= torrent_rss   
     RSSParser.new(url).parse do |item|
       download_torrent(item)
     end
     save_logs
     prune
+  end
+  
+  def torrent_rss
+    feed = NSUserDefaults.standardUserDefaults['pastis.torrent_rss']
+    if feed.nil?
+      feed = "http://www.ezrss.it/feed/"
+      NSUserDefaults.standardUserDefaults['pastis.torrent_rss'] = feed
+      NSUserDefaults.standardUserDefaults.synchronize
+    end
+    feed
   end
   
   # returns an array with the torrent path and the torrent destination if available

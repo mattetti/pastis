@@ -59,6 +59,8 @@
 		2B1289AB11C696EA008A93D1 /* Logs.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B1289AA11C696EA008A93D1 /* Logs.xib */; };
 		2B1289B911C69873008A93D1 /* logs_controller.rb in Resources */ = {isa = PBXBuildFile; fileRef = 2B1289B811C69873008A93D1 /* logs_controller.rb */; };
 		2B1289BB11C6987D008A93D1 /* settings_controller.rb in Resources */ = {isa = PBXBuildFile; fileRef = 2B1289BA11C6987D008A93D1 /* settings_controller.rb */; };
+		2B1289D111C6CDED008A93D1 /* logger.rb in Resources */ = {isa = PBXBuildFile; fileRef = 2B1289D011C6CDED008A93D1 /* logger.rb */; };
+		2B128A0311C71CB0008A93D1 /* cocoa_logger.rb in Resources */ = {isa = PBXBuildFile; fileRef = 2B128A0211C71CB0008A93D1 /* cocoa_logger.rb */; };
 		4DE339F70D74FCDD00ADB6EE /* rb_main.rb in Resources */ = {isa = PBXBuildFile; fileRef = 4DE339F60D74FCDD00ADB6EE /* rb_main.rb */; };
 		4DE3BE140D8651D900ECA448 /* MacRuby.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DE3BE130D8651D900ECA448 /* MacRuby.framework */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
@@ -103,6 +105,8 @@
 		2B1289AA11C696EA008A93D1 /* Logs.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Logs.xib; sourceTree = "<group>"; };
 		2B1289B811C69873008A93D1 /* logs_controller.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = logs_controller.rb; sourceTree = "<group>"; };
 		2B1289BA11C6987D008A93D1 /* settings_controller.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = settings_controller.rb; sourceTree = "<group>"; };
+		2B1289D011C6CDED008A93D1 /* logger.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; name = logger.rb; path = ../../lib/logger.rb; sourceTree = SOURCE_ROOT; };
+		2B128A0211C71CB0008A93D1 /* cocoa_logger.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = cocoa_logger.rb; sourceTree = "<group>"; };
 		4DE339F60D74FCDD00ADB6EE /* rb_main.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = rb_main.rb; sourceTree = "<group>"; };
 		4DE3BE130D8651D900ECA448 /* MacRuby.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MacRuby.framework; path = /Library/Frameworks/MacRuby.framework; sourceTree = "<absolute>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -125,12 +129,14 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				2B1289D011C6CDED008A93D1 /* logger.rb */,
 				2B1288AE11C60724008A93D1 /* pastis.rb */,
 				2B1288B011C60749008A93D1 /* macruby_http.rb */,
 				2B1288A811C606F2008A93D1 /* filter.rb */,
 				2B1288A911C606F2008A93D1 /* logs.rb */,
 				2B1288AA11C606F2008A93D1 /* rss_parser.rb */,
 				2B1288D911C60C69008A93D1 /* table_filter.rb */,
+				2B128A0211C71CB0008A93D1 /* cocoa_logger.rb */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -294,6 +300,8 @@
 				2B1289AB11C696EA008A93D1 /* Logs.xib in Resources */,
 				2B1289B911C69873008A93D1 /* logs_controller.rb in Resources */,
 				2B1289BB11C6987D008A93D1 /* settings_controller.rb in Resources */,
+				2B1289D111C6CDED008A93D1 /* logger.rb in Resources */,
+				2B128A0311C71CB0008A93D1 /* cocoa_logger.rb in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

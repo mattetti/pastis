@@ -6,17 +6,18 @@
 
 class ApplicationController
   
-  attr_accessor :menu, :filterWindowController
+  attr_accessor :menu, :filterWindowController, :logsController, :settingsController, :splash
   
   def quit(sender)
-    puts "ciao ciao"
     exit
   end
   
   def applicationDidFinishLaunching(notification)
-    puts "done launching"
+    self.logsController = LogsController.alloc.initWithWindowNibName(LogsController::NIB)
+    Pastis.logger <<  "done launching"
     @menu = NSMenu.alloc.init   
     create_menu_items
+    splash.center
     start_fetching
   end
   
@@ -25,6 +26,23 @@ class ApplicationController
       self.filterWindowController = FilterWindowController.alloc.initWithWindowNibName("Filters")
     end
     filterWindowController.showWindow(self)
+    filterWindowController.window.center
+  end
+  
+  def show_logs(sender)
+    unless self.logsController
+      self.logsController = logsController.alloc.initWithWindowNibName(LogsController::NIB)
+    end
+    logsController.showWindow(self)
+    logsController.window.center
+  end
+  
+  def show_settings(sender)
+    unless self.settingsController
+      self.settingsController = SettingsController.alloc.initWithWindowNibName(SettingsController::NIB)
+    end
+    settingsController.showWindow(self)
+    settingsController.window.center
   end
   
   def show_torrents(sender)
@@ -37,12 +55,14 @@ class ApplicationController
   
   def create_menu_items
     menuItem = menu.addItemWithTitle('Edit Filters', action: 'show_filters:', keyEquivalent: "")
+    menuItem = menu.addItemWithTitle('Edit Settings', action: 'show_settings:', keyEquivalent: "")
     menu.addItem(NSMenuItem.separatorItem)
 
     menuItem = menu.addItemWithTitle('Show Torrents', action: 'show_torrents:', keyEquivalent: "")
     menu.addItem(NSMenuItem.separatorItem)
     
     menuItem = menu.addItemWithTitle('Fetch Torrents', action: 'force_run:', keyEquivalent: "")
+    menuItem = menu.addItemWithTitle('Show Logs', action: 'show_logs:', keyEquivalent: "")
     menu.addItem(NSMenuItem.separatorItem)
 
     menuItem = menu.addItemWithTitle("Quit", action: 'quit:', keyEquivalent: "q")
@@ -57,7 +77,7 @@ class ApplicationController
   end
   
   def start_fetching
-    puts "start fetching RSS items"
+    Pastis.logger << "start fetching RSS items"
     @timer = NSTimer.scheduledTimerWithTimeInterval fetching_interval,
                                            target: self,
                                            selector: 'force_run:',
@@ -68,8 +88,8 @@ class ApplicationController
   
   def fetching_interval
     # TODO: switch to a user preference value
-    # 5 minutes
-    300
+    # 10 minutes
+    600
   end
   
 end
