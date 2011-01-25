@@ -1,5 +1,3 @@
-require 'URI'
-require 'net/http'
 require 'json'
 require 'yaml'
 require 'pathname'
@@ -102,9 +100,15 @@ class Pastis
     
     if not_in_logs?(item.guid)
       url = item.enclosure['url']
-      filename = NSURL.URLWithString(url).lastPathComponent
+      if !url.include?(".torrent") && item.title.include?(".torrent")
+        filename = item.title
+      else
+        filename = NSURL.URLWithString(url).lastPathComponent
+      end
+      
       Pastis.logger << "[new] #{filename}"
       torrent_path, download_destination = find_torrents_path_to_user(item.title, filename)
+      
       download url, :immediate => true, :save_to => torrent_path, :url => url do |torrent|
         if torrent.status_code == 200          
           add_to_transmission_queue(torrent_path, download_destination) if download_destination
@@ -134,7 +138,8 @@ class Pastis
   def torrent_rss
     feed = NSUserDefaults.standardUserDefaults['pastis.torrent_rss']
     if feed.nil?
-      feed = "http://www.ezrss.it/feed/"
+      feed = "http://rss.bt-chat.com/"
+      # feed = "http://www.ezrss.it/feed/"
       NSUserDefaults.standardUserDefaults['pastis.torrent_rss'] = feed
       NSUserDefaults.standardUserDefaults.synchronize
     end
