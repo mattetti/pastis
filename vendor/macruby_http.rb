@@ -95,7 +95,7 @@ class MacRubyHelper
 end
 
 module MacRubyHTTP
-  VERSION    = '0.3' unless self.const_defined?("VERSION")
+  VERSION    = '0.3.1' unless self.const_defined?("VERSION")
   
   class Response
     attr_reader :body
@@ -150,12 +150,14 @@ module MacRubyHTTP
     attr_accessor :credential # username & password has a hash
     attr_accessor :proxy_credential # credential supplied to proxy servers
     attr_accessor :post_data
-    attr_reader :method
+    attr_reader   :method
 
     attr_reader :response
     attr_reader :status_code
     attr_reader :response_headers
     attr_reader :response_size
+    attr_reader :options
+    attr_reader :path_to_save_response
 
 
     # ==== Parameters
@@ -171,18 +173,21 @@ module MacRubyHTTP
     # :save_to<String>   - Path to save the response body
     # :headers<Hash>     - headers send with the request
     # :blocking<Boolean> - should the main runloop be blocked or not (default: false)
+    # Anything else will be available via the options attribute reader.
     #
     def initialize(url, http_method = 'GET', options={})
       @method = http_method.upcase.to_s
-      @delegator = options[:delegator] || self
-      @path_to_save_response = options[:save_to]
-      @payload = options[:payload]
-      @credential = options[:credential] || {}
+      @delegator = options.delete(:delegator) || self
+      @path_to_save_response = options.delete(:save_to)
+      @payload = options.delete(:payload)
+      @credential = options.delete(:credential) || {}
       @credential = {:user => '', :password => ''}.merge(@credential)
-      @headers = options[:headers] || {}
-      @blocking = options[:blocking] || false
-      
-      if options[:immediate]
+      @headers = options.delete(:headers) || {}
+      @blocking = options.delete(:blocking) || false
+      immediate = options.delete(:immediate)
+      @options = options
+
+      if immediate
         immediate_download(url)
       else
         initiate_request(url)
@@ -272,12 +277,12 @@ module MacRubyHTTP
     def connectionDidFinishLoading(connection)
       @request.done_loading!
       response_body = @received_data.dup if @received_data
-      response_body.writeToFile(@path_to_save_response, atomically:true) if @received_dat && to_save?
+      response_body.writeToFile(@path_to_save_response, atomically:true) if @received_data && to_save?
       
       @response = ::MacRubyHTTP::Response.new(:status_code => status_code, :body => response_body, :headers => response_headers, :url => @url)
       @received_data = nil
       if @delegator.is_a?(Proc)
-        @delegator.call( @response )
+        @delegator.call( @response, self )
       elsif !@delegator.nil? && @delegator.respond_to?(:handle_query_response)
         @delegator.send(:handle_query_response, @response)
       else

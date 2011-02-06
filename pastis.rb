@@ -1,31 +1,29 @@
 require 'json'
 require 'yaml'
-require 'pathname'
 
-root = Pathname.new File.expand_path(File.dirname(__FILE__))
+dir_path = NSBundle.mainBundle.resourcePath.fileSystemRepresentation
+
 # only loading the required files if we are outside of a Cocoa app
-if File.exist?(root.join('lib/rss_parser.rb'))
+if File.exist?(File.expand_path('lib/rss_parser.rb', dir_path))
   STANDALONE = true
-  require root.join('lib/rss_parser')
-  require root.join('lib/filter')
-  require root.join('lib/logs')
-  require root.join('vendor/macruby_http')
-  require root.join('lib/logger')
+  require File.expand_path('lib/rss_parser', dir_path)
+  require File.expand_path('lib/filter', dir_path)
+  require File.expand_path('lib/logs', dir_path)
+  require File.expand_path('vendor/macruby_http', dir_path)
+  require File.expand_path('lib/logger', dir_path)
 else
   # load from the resources folder
   STANDALONE = false
-  require root.join('rss_parser')
-  require root.join('filter')
-  require root.join('logs')
-  require root.join('macruby_http')
-  require root.join('logger')
+  require File.expand_path('rss_parser', dir_path)
+  require File.expand_path('filter', dir_path)
+  require File.expand_path('logs', dir_path)
+  require File.expand_path('macruby_http', dir_path)
+  require File.expand_path('logger', dir_path)
 end
-
 
 class Pastis  
   
   include MacRubyHelper::DownloadHelper
-  include Logs
   
   def self.logger
     @logger ||= Logger.new
@@ -98,10 +96,10 @@ class Pastis
     download_path = File.join(torrents_local_path , 'to_download')
     Dir.mkdir(download_path) unless File.exist?(download_path)
     
-    if not_in_logs?(item.guid)
+    unless Logs.include?(item.guid)
       url = item.enclosure['url']
       if !url.include?(".torrent") && item.title.include?(".torrent")
-        filename = item.title
+        filename = item.title.strip
       else
         filename = NSURL.URLWithString(url).lastPathComponent
       end
@@ -109,12 +107,19 @@ class Pastis
       Pastis.logger << "[new] #{filename}"
       torrent_path, download_destination = find_torrents_path_to_user(item.title, filename)
       
-      download url, :immediate => true, :save_to => torrent_path, :url => url do |torrent|
-        if torrent.status_code == 200          
-          add_to_transmission_queue(torrent_path, download_destination) if download_destination
-          add_to_logs(item.guid, filename, item.pubDate)
+      download url, :save_to => torrent_path, :destination => download_destination, :item => item, :file => filename do |torrent, dl|
+        if torrent.status_code == 200      
+          destination = dl.options[:destination]
+          if destination
+            puts "Queuing: #{dl.options[:file]}"
+          else
+            puts "Downloading: #{dl.options[:file]}"
+          end
+          add_to_transmission_queue(dl.path_to_save_response, destination) if destination 
+          Logs.add dl.options[:item].guid, dl.options[:file], dl.options[:item].pubDate
         end
       end
+      
     end
     
   end
@@ -127,19 +132,19 @@ class Pastis
       NSWorkspace.sharedWorkspace.launchApplication('Transmission')
     end
      
+    Logs.save # to save last run
     url ||= torrent_rss   
     RSSParser.new(url).parse do |item|
       download_torrent(item)
     end
-    save_logs
     prune
   end
   
   def torrent_rss
     feed = NSUserDefaults.standardUserDefaults['pastis.torrent_rss']
     if feed.nil?
-      feed = "http://rss.bt-chat.com/"
-      # feed = "http://www.ezrss.it/feed/"
+      #feed = "http://rss.bt-chat.com/?group=3&cat=9" #"http://rss.bt-chat.com/"
+      feed = "http://www.ezrss.it/feed/"
       NSUserDefaults.standardUserDefaults['pastis.torrent_rss'] = feed
       NSUserDefaults.standardUserDefaults.synchronize
     end
@@ -157,7 +162,7 @@ class Pastis
   
   # Deletes the old files
    def prune
-     Dir.glob("#{torrents_local_path}*.torrent").each do |file|
+     Dir.glob(File.join(torrents_local_path, "*.torrent")).each do |file|
        File.delete(file) if (File.atime(File.expand_path(file)) < (Time.now - (60 * 60 * 24 * 31)))
      end
    end

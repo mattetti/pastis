@@ -27,6 +27,7 @@ class ApplicationController
     end
     filterWindowController.showWindow(self)
     filterWindowController.window.center
+    filterWindowController.window.orderFront(self)
   end
   
   def show_logs(sender)
@@ -35,6 +36,7 @@ class ApplicationController
     end
     logsController.showWindow(self)
     logsController.window.center
+    logsController.window.orderFront(self)
   end
   
   def show_settings(sender)
@@ -43,6 +45,7 @@ class ApplicationController
     end
     settingsController.showWindow(self)
     settingsController.window.center
+    settingsController.window.orderFront(self)
   end
   
   def show_torrents(sender)

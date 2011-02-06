@@ -20,6 +20,7 @@ class Pastis
     end     
     
     def to_download?(string)
+      string = string.gsub('.', ' ')
       if inclusive_rules.map{|rule| string.downcase.include?(rule.downcase) }.compact.include?(false)
         false 
       elsif exclusive_rules.nil? || exclusive_rules.empty? || !exclusive_rules.map{|rule| string.downcase.include?(rule.downcase) }.compact.include?(true)

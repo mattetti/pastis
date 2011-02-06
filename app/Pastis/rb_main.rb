@@ -10,15 +10,12 @@
 # do that here too.
 framework 'Cocoa'
 
-require 'pathname'
-dir_path = Pathname.new(NSBundle.mainBundle.resourcePath.fileSystemRepresentation)
-require dir_path.join('pastis')
+dir_path = NSBundle.mainBundle.resourcePath.fileSystemRepresentation
+require File.expand_path('pastis', dir_path)
 # require dir_path.join('filter_window_controller')
 
 # Loading all the Ruby project files.
 main = File.basename(__FILE__, File.extname(__FILE__))
-# dir_path = NSBundle.mainBundle.resourcePath.fileSystemRepresentation
-
 
 Dir.glob(File.join(dir_path, '*.{rb,rbo}')).map { |x| File.basename(x, File.extname(x)) }.uniq.each do |path|
   if path != main

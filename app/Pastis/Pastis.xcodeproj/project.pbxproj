@@ -118,7 +118,7 @@
 		2B1289BA11C6987D008A93D1 /* settings_controller.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = settings_controller.rb; sourceTree = "<group>"; };
 		2B1289D011C6CDED008A93D1 /* logger.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; name = logger.rb; path = ../../lib/logger.rb; sourceTree = SOURCE_ROOT; };
 		2B128A0211C71CB0008A93D1 /* cocoa_logger.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = cocoa_logger.rb; sourceTree = "<group>"; };
-		2BFC9D2712EEC88900FA9B43 /* Pastis.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pastis.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2BFC9DBB12EF4AFD00FA9B43 /* Pastis.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pastis.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4DE339F60D74FCDD00ADB6EE /* rb_main.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = rb_main.rb; sourceTree = "<group>"; };
 		4DE3BE130D8651D900ECA448 /* MacRuby.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MacRuby.framework; path = /Library/Frameworks/MacRuby.framework; sourceTree = "<absolute>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -183,7 +183,7 @@
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2BFC9D2712EEC88900FA9B43 /* Pastis.app */,
+				2BFC9DBB12EF4AFD00FA9B43 /* Pastis.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -265,7 +265,7 @@
 			name = Pastis;
 			productInstallPath = "$(HOME)/Applications";
 			productName = Pastis;
-			productReference = 2BFC9D2712EEC88900FA9B43 /* Pastis.app */;
+			productReference = 2BFC9DBB12EF4AFD00FA9B43 /* Pastis.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -351,7 +351,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# The macruby_deploy command-line tool with the --compile argument will compile every Ruby source file of your .app into machine code. Default options will be used. Pass the -h option to get more information.\nPATH=\"$PATH:/usr/local/bin\" macruby_deploy --embed --compile \"$TARGET_BUILD_DIR/$PROJECT_NAME.app\"";
+			shellScript = "# The macruby_deploy command-line tool with the --compile argument will compile every Ruby source file of your .app into machine code. Default options will be used. Pass the -h option to get more information.\nPATH=\"$PATH:/usr/local/bin\" macruby_deploy --embed --stdlib yaml --stdlib json --compile \"$TARGET_BUILD_DIR/$PROJECT_NAME.app\"";
 		};
 		4D1A51A010A4FF5D0046A98A /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
