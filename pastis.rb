@@ -95,26 +95,35 @@ class Pastis
     Dir.mkdir(torrents_local_path) unless File.exist?(torrents_local_path)
     download_path = File.join(torrents_local_path , 'to_download')
     Dir.mkdir(download_path) unless File.exist?(download_path)
-    
-    unless Logs.include?(item.guid)
-      url = item.enclosure['url']
-      if !url.include?(".torrent") && item.title.include?(".torrent")
-        filename = item.title.strip
+    url = item.enclosure['url']
+    if !url.include?(".torrent") && item.title.include?(".torrent")
+      filename = item.title.strip
       else
-        filename = NSURL.URLWithString(url).lastPathComponent
-      end
+      filename = NSURL.URLWithString(url).lastPathComponent
+    end
+    guid = (item.guid.nil? || item.guid.empty?) ? filename : item.guid
+    item.guid = guid
+      
+    unless Logs.include?(item.guid)
       
       Pastis.logger << "[new] #{filename}"
       torrent_path, download_destination = find_torrents_path_to_user(item.title, filename)
       
-      download url, :save_to => torrent_path, :destination => download_destination, :item => item, :file => filename do |torrent, dl|
+      download url, :save_to => torrent_path.dup, 
+                    :destination => (download_destination ? download_destination.dup : nil), 
+                    :item => item.dup, 
+                    :file => filename.dup do |torrent, dl|
+                      
+        # puts torrent.url.absoluteString
+        next if Logs.include?(item.guid)
         if torrent.status_code == 200      
           destination = dl.options[:destination]
           if destination
             puts "Queuing: #{dl.options[:file]}"
           else
-            puts "Downloading: #{dl.options[:file]}"
+            puts "Downloaded: #{dl.options[:file]}"
           end
+          
           add_to_transmission_queue(dl.path_to_save_response, destination) if destination 
           Logs.add dl.options[:item].guid, dl.options[:file], dl.options[:item].pubDate
         end
@@ -135,7 +144,11 @@ class Pastis
     Logs.save # to save last run
     url ||= torrent_rss   
     RSSParser.new(url).parse do |item|
-      download_torrent(item)
+      if Logs.include?(item.guid)
+        puts "#{item.enclosure['url']} already downloaded"
+      else
+        download_torrent(item)
+      end
     end
     prune
   end
@@ -143,7 +156,7 @@ class Pastis
   def torrent_rss
     feed = NSUserDefaults.standardUserDefaults['pastis.torrent_rss']
     if feed.nil?
-      #feed = "http://rss.bt-chat.com/?group=3&cat=9" #"http://rss.bt-chat.com/"
+      # feed = "http://rss.bt-chat.com/?group=3&cat=9" #"http://rss.bt-chat.com/"
       feed = "http://www.ezrss.it/feed/"
       NSUserDefaults.standardUserDefaults['pastis.torrent_rss'] = feed
       NSUserDefaults.standardUserDefaults.synchronize

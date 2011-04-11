@@ -13,6 +13,7 @@ class Pastis
     end 
 
     def add(guid, filename, timestamp) 
+      # puts "logging #{filename}"
       log_data << {:guid => guid, :filename => filename, :timestamp => timestamp, :added_at => Time.now} unless include?(guid)
     end
 
@@ -27,14 +28,14 @@ class Pastis
     end            
 
     def include?(guid)
-      log_data.map{|item| item[:guid]}.include?(guid)
+      log_data.find{|item| item[:guid] == guid}
     end 
 
     def prune
       log_data.delete_if{|item| item[:added_at] < (Time.now - (60 * 60 * 24 * 31)) }
     end
 
-    def clear_logs
+    def clear
       `rm #{log_file}`
       @log_data = nil
     end        

@@ -57,6 +57,10 @@ class SettingsController < NSWindowController
     Pastis.logger << "Settings updated"
   end
   
+  def reset_rsslogs(sender)
+    Logs.clear
+  end
+  
   private
   
 end

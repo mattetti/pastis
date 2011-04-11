@@ -82,6 +82,12 @@ class RSSParser
     if @block
       @items.each{|item| @block.call(item)}
     end
+    @title.strip! unless @title.nil?
+    @description.strip! unless @description.nil?
+    @link.strip! unless @link.nil?
+    @pubDate.strip! unless @pubDate.nil?
+    @guid.strip! unless @guid.nil?
+    @guid = @title if @guid.nil?
   end
   
 end
