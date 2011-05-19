@@ -36,7 +36,7 @@ class Pastis
     end
 
     def clear
-      `rm #{log_file}`
+      `rm #{LOG_FILE}`
       @log_data = nil
     end        
 
