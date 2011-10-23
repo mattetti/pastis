@@ -20,32 +20,34 @@ class ApplicationController
     splash.center
     start_fetching
   end
+    
+  def show_controller_window(controller)
+    controller.showWindow(self)
+    controller.window.center
+    controller.window.orderFront(self)
+    controller.window.makeKeyAndOrderFront(self) 
+    controller.window.orderFrontRegardless
+  end
   
   def show_filters(sender)
     unless self.filterWindowController
       self.filterWindowController = FilterWindowController.alloc.initWithWindowNibName("Filters")
     end
-    filterWindowController.showWindow(self)
-    filterWindowController.window.center
-    filterWindowController.window.orderFront(self)
+    show_controller_window(filterWindowController)
   end
   
   def show_logs(sender)
     unless self.logsController
       self.logsController = logsController.alloc.initWithWindowNibName(LogsController::NIB)
     end
-    logsController.showWindow(self)
-    logsController.window.center
-    logsController.window.orderFront(self)
+    show_controller_window(logsController)
   end
   
   def show_settings(sender)
     unless self.settingsController
       self.settingsController = SettingsController.alloc.initWithWindowNibName(SettingsController::NIB)
     end
-    settingsController.showWindow(self)
-    settingsController.window.center
-    settingsController.window.orderFront(self)
+    show_controller_window(settingsController)
   end
   
   def show_torrents(sender)

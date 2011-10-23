@@ -114,7 +114,8 @@ class Pastis
                     :item => item.dup, 
                     :file => filename.dup do |torrent, dl|
                       
-        # puts torrent.url.absoluteString
+                        #puts torrent.url.absoluteString
+                        #puts torrent.body.inspect
         next if Logs.include?(item.guid)
         if torrent.status_code == 200      
           destination = dl.options[:destination]
@@ -157,7 +158,7 @@ class Pastis
     feed = NSUserDefaults.standardUserDefaults['pastis.torrent_rss']
     if feed.nil?
       # feed = "http://rss.bt-chat.com/?group=3&cat=9" #"http://rss.bt-chat.com/"
-      feed = "http://www.ezrss.it/feed/"
+        feed = "http://showrss.karmorra.info/feeds/all.rss" #"http://www.ezrss.it/feed/"
       NSUserDefaults.standardUserDefaults['pastis.torrent_rss'] = feed
       NSUserDefaults.standardUserDefaults.synchronize
     end
