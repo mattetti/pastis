@@ -48,6 +48,11 @@ class RSSParser
   def parserDidStartDocument(parser)
     puts "starting parsing.."
   end
+    
+  def parser(parser, parseErrorOccurred:error)
+    puts "Error parsing the RSS file"
+    puts error.description
+  end
   
   # Delegate being called when an element starts being processed
   def parser(parser, didStartElement:element, namespaceURI:uri, qualifiedName:name, attributes:attrs)
