@@ -21,9 +21,47 @@ else
   require File.expand_path('logger', dir_path)
 end
 
-class Pastis  
+BW = BubbleWrap unless defined?(BW)
+
+module BubbleWrap
   
-  include MacRubyHelper::DownloadHelper
+  SETTINGS = {}
+  module_function
+  
+  def debug=(val)
+    BubbleWrap::SETTINGS[:debug] = val
+  end
+
+  def debug?
+    BubbleWrap::SETTINGS[:debug]
+  end
+
+  # @return [UIcolor]
+  def rgb_color(r,g,b)
+    rgba_color(r,g,b,1)
+  end
+  
+  # @return [UIcolor]
+  def rgba_color(r,g,b,a)
+    UIColor.colorWithRed((r/255.0), green:(g/255.0), blue:(b/255.0), alpha:a)
+  end
+  
+  def localized_string(key, value)
+    NSBundle.mainBundle.localizedStringForKey(key, value:value, table:nil)
+  end
+  
+  def create_uuid
+    uuid = CFUUIDCreate(nil)
+    CFUUIDCreateString(nil, uuid)
+  end
+  
+end
+
+# BubbleWrap.debug = true
+
+class Pastis
+  
+  include BubbleWrap
   
   def self.logger
     @logger ||= Logger.new
@@ -62,7 +100,7 @@ class Pastis
                                 'download-dir' => File.expand_path(download_destination)} 
                }.to_json
     @headers ||= {}
-    MacRubyHTTP.post(transmission_rpc, {:payload => payload, :blocking => true, :headers => @headers}) do |resp|
+    HTTP.post(transmission_rpc, {:payload => payload, :blocking => true, :headers => @headers}) do |resp|
       if resp.status_code == 409
         @headers['X-Transmission-Session-Id'] = resp.headers['X-Transmission-Session-Id']
         # retry with the proper session
@@ -103,33 +141,36 @@ class Pastis
     end
     guid = (item.guid.nil? || item.guid.empty?) ? filename : item.guid
     item.guid = guid
-      
+    
     unless Logs.include?(item.guid)
       
-      Pastis.logger << "[new] #{filename}"
+      Pastis.logger << "[new] #{filename} - #{url}"
       torrent_path, download_destination = find_torrents_path_to_user(item.title, filename)
-      
-      download url, :save_to => torrent_path.dup, 
-                    :destination => (download_destination ? download_destination.dup : nil), 
-                    :item => item.dup, 
-                    :file => filename.dup do |torrent, dl|
-                      
-                        #puts torrent.url.absoluteString
-                        #puts torrent.body.inspect
-        next if Logs.include?(item.guid)
-        if torrent.status_code == 200      
-          destination = dl.options[:destination]
-          if destination
-            puts "Queuing: #{dl.options[:file]}"
-          else
-            puts "Downloaded: #{dl.options[:file]}"
-          end
-          
-          add_to_transmission_queue(dl.path_to_save_response, destination) if destination 
-          Logs.add dl.options[:item].guid, dl.options[:file], dl.options[:item].pubDate
-        end
+
+      HTTP.get(url, :timeout => 15.0, :save_to => torrent_path.dup,
+               :destination => (download_destination ? download_destination.dup : nil),
+               :item => item.dup,
+               :file => filename.dup) do |response, query|
+        
+                next if Logs.include?(item.guid)
+                  if response.status_code == 200
+                    response.body.writeToFile(query.options[:save_to], atomically:true)
+                    destination = query.options[:destination]
+                    if destination
+                      puts "Queuing: #{query.options[:file]}"
+                    else
+                      puts "Downloaded: #{query.options[:file]}"
+                    end
+               
+                    add_to_transmission_queue(query.options[:save_to], destination) if destination
+                    Logs.add query.options[:item].guid, query.options[:file], query.options[:item].pubDate
+                    @to_dl_count -= 1
+                    Logs.save if @to_dl_count.zero?
+                  elsif response.error_message
+                    Pastis.logger << "#{response.error_message} for #{query.url.absoluteString}"
+                  end
       end
-      
+  
     end
     
   end
@@ -141,17 +182,18 @@ class Pastis
       Pastis.logger << "Transmission not Running, starting now..."
       NSWorkspace.sharedWorkspace.launchApplication('Transmission')
     end
-     
-    Logs.save # to save last run
+    @to_dl_count = 0
     url ||= torrent_rss   
-    RSSParser.new(url).parse do |item|
+    feed = RSSParser.new(url)
+    feed.delegate = self
+    feed.parse do |item|
       if Logs.include?(item.guid)
         puts "#{item.enclosure['url']} already downloaded"
       else
+        @to_dl_count += 1
         download_torrent(item)
       end
     end
-    prune
   end
   
   def torrent_rss
@@ -180,5 +222,10 @@ class Pastis
        File.delete(file) if (File.atime(File.expand_path(file)) < (Time.now - (60 * 60 * 24 * 31)))
      end
    end
+
+  def when_parser_is_done
+    Logs.save # to save last run
+    prune
+  end
   
 end

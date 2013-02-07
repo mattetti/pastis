@@ -15,6 +15,7 @@ class Pastis
     def add(guid, filename, timestamp) 
       # puts "logging #{filename}"
       log_data << {:guid => guid, :filename => filename, :timestamp => timestamp, :added_at => Time.now} unless include?(guid)
+      #save
     end
 
     def save
@@ -22,9 +23,12 @@ class Pastis
         puts "Nothing to save, odd!"
       else
         puts "Saving logs"
+        File.open(log_file, 'w+'){|f| f << Marshal.dump(log_data)}
+        #data = Marshal.dump(log_data).to_data
+        # data.writeToFile(NSURL.URLWithString(log_file), atomically:true)
+        prune
       end
-      prune
-      File.open(log_file, 'w+'){|f| f << Marshal.dump(log_data)}
+      
     end            
 
     def include?(guid)

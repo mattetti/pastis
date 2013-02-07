@@ -9,6 +9,7 @@ class Logger
 
   # overwrite the default logger
   def <<(val)
+    NSLog(val)
     LogsController.log("#{val}\n")
     history << "#{val}\n"
     clean_history
