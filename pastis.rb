@@ -144,7 +144,7 @@ class Pastis
     
     unless Logs.include?(item.guid)
       
-      Pastis.logger << "[new] #{filename} - #{url}"
+      Pastis.logger << "[new] #{item.title} #{filename} - #{url}"
       torrent_path, download_destination = find_torrents_path_to_user(item.title, filename)
 
       HTTP.get(url, :timeout => 15.0, :save_to => torrent_path.dup,
@@ -157,9 +157,9 @@ class Pastis
                     response.body.writeToFile(query.options[:save_to], atomically:true)
                     destination = query.options[:destination]
                     if destination
-                      puts "Queuing: #{query.options[:file]}"
+                      Pastis.logger << "Queuing: #{item.title} - #{query.options[:file]}"
                     else
-                      puts "Downloaded: #{query.options[:file]}"
+                      Pastis.logger << "Downloaded: #{item.title} - #{query.options[:file]}"
                     end
                
                     add_to_transmission_queue(query.options[:save_to], destination) if destination
@@ -188,7 +188,7 @@ class Pastis
     feed.delegate = self
     feed.parse do |item|
       if Logs.include?(item.guid)
-        puts "#{item.enclosure['url']} already downloaded"
+        Pastis.logger << "#{item.title} #{item.enclosure['url']} already downloaded"
       else
         @to_dl_count += 1
         download_torrent(item)

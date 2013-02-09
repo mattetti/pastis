@@ -20,9 +20,9 @@ class Pastis
 
     def save
       if log_data.nil? || log_data.empty?
-        puts "Nothing to save, odd!"
+        Pastis.logger << "Nothing to save, odd!"
       else
-        puts "Saving logs"
+        Pastis.logger << "Saving logs"
         File.open(log_file, 'w+'){|f| f << Marshal.dump(log_data)}
         #data = Marshal.dump(log_data).to_data
         # data.writeToFile(NSURL.URLWithString(log_file), atomically:true)

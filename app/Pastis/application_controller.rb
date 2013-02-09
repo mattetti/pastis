@@ -55,6 +55,7 @@ class ApplicationController
   end
   
   def force_run(sender=nil)
+    Pastis.logger << "Starting a run"
     Pastis.new.check
   end
   

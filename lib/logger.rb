@@ -8,9 +8,9 @@ class Logger
   end
   
   def clean_history
-    if history && history.count("\n") > 300
+    if history && history.count("\n") > 3000
       lines = history.split("\n")
-      while lines.size > 300
+      while lines.size > 3000
         lines.shift
       end
       self.history = lines.join("\n")
